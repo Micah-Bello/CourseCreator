@@ -1,0 +1,15 @@
+﻿<h3>SimpleQuizComponent</h3>
+
+<p>
+    @Quiz.Question
+</p>
+
+@foreach (var option in Quiz.Options)
+{
+    <label>@option.Text</label>
+}
+
+@code {
+    [Parameter]
+    public SimpleQuizModel Quiz { get; set; }
+}

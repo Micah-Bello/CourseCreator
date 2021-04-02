@@ -2,6 +2,27 @@
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+<SimpleQuizComponent Quiz="@testQuiz" />
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    private SimpleQuizModel testQuiz = new SimpleQuizModel
+    {
+        Question = "What is the color of love?",
+        Options = new List<SimpleQuizOptionModel>
+        {
+            new SimpleQuizOptionModel
+            {
+                Text = "White"
+            },
+            new SimpleQuizOptionModel
+            {
+                Text = "Red"
+            },
+            new SimpleQuizOptionModel
+            {
+                Text = "Blue"
+            }
+        }
+    };
+}

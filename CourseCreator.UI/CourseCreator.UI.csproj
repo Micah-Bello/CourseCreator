@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
+    <ProjectReference Include="..\CourseCreator.Library\CourseCreator.Library.csproj" />
   </ItemGroup>
 
 </Project>
