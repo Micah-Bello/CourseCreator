@@ -1,25 +1,17 @@
 ﻿@page "/projects"
-@inject NavigationManager NavMan 
-
-
-@attribute [Authorize]
 
 <h2>Projects</h2>
 
 <button class="btn btn-primary" @onclick="NewProject">New Project</button>
 
-@code { 
-
-
-    protected override Task OnInitializedAsync()
+@if (projects is not null)
+{
+    @foreach (var project in projects)
     {
-
-
-        return base.OnInitializedAsync();
+        <label class="m-2">@project.Title</label>
     }
-
-    private void NewProject()
-    {
-        NavMan.NavigateTo("/projects/add-new");
-    }
+}
+else
+{
+    <label class="font-italic">Loading...</label>
 }

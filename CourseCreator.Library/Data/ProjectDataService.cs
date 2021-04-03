@@ -23,5 +23,13 @@ namespace CourseCreator.Library.Data
         {
             await _dataAccess.SaveData("dbo.spProject_Insert", project, SD.DB);
         }
+
+        public async Task<List<ProjectModel>> GetUserProjects(string userId)
+        {
+            var rows = await _dataAccess.LoadData<ProjectModel, dynamic>
+                ("dbo.spProject_ReadAllForUser", new { UserId = userId }, SD.DB);
+
+            return rows;
+        }
     }
 }
