@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace CourseCreator.Library.Models
 {
-    public class SimpleQuizOptionModel 
+    public interface IContentBlock
     {
         public int Id { get; set; }
-        public int QuizId { get; set; }
-        public string Text { get; set; }
-        public bool IsAnswer { get; set; }
+        public int SectionId { get; set; }
+        public int OrderNo { get; set; }
     }
 }
