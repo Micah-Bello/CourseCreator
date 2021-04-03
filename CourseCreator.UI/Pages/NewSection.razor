@@ -1,0 +1,27 @@
+﻿@page "/projects/add-new-section/{ProjectId:int}"
+
+<h3 class="m-2">Add New Section</h3>
+
+<EditForm Model="section" OnValidSubmit="CreateNewSection">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group mx-2 my-3">
+        <label class="h6 font-weight-bold">Title</label>
+        <br />
+        <InputText @bind-Value="section.Title" class="col-md-4 form-control" />
+    </div>
+    <div class="form-group m-2">
+        <label class="h6 font-weight-bold">Description</label>
+        <br />
+        <InputText @bind-Value="section.Description" class="col-md-4 form-control" />
+    </div>
+
+    <div class="row mx-2 my-4">
+        <button class="btn btn-outline-primary mr-1" @onclick="OnCancelClick">
+            Cancel
+        </button>
+        <button class="btn btn-primary" type="submit">
+            Create Section
+        </button>
+    </div>
+</EditForm>

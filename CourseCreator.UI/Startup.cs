@@ -1,3 +1,5 @@
+using CourseCreator.Library.Data;
+using CourseCreator.Library.DataAccess;
 using CourseCreator.UI.Areas.Identity;
 using CourseCreator.UI.Data;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +42,12 @@ namespace CourseCreator.UI
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
+            services.AddScoped<ProjectDataService>();
+            services.AddScoped<SectionDataService>();
+            services.AddScoped<SimpleQuizDataService>();
+            services.AddScoped<SimpleQuizOptionDataService>();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
