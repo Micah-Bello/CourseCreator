@@ -33,12 +33,14 @@ namespace CourseCreator.UI.Pages
                 Description = section.Description
             };
 
-            await SectionData.CreateSection(sectionToSave);
+            var id = await SectionData.CreateSection(sectionToSave);
+
+            NavMan.NavigateTo($"/projects/{ProjectId}");
         }
 
         private void OnCancelClick()
         {
-            NavMan.NavigateTo("/projects");
+            NavMan.NavigateTo($"/projects/{ProjectId}");
         }
     }
 }

@@ -19,9 +19,18 @@ namespace CourseCreator.Library.Data
             _dataAccess = dataAccess;
         }
 
-        public async Task CreateProject(ProjectModel project)
+        public async Task<int> CreateProject(ProjectModel project)
         {
-            await _dataAccess.SaveData("dbo.spProject_Insert", project, SD.DB);
+            DynamicParameters p = new DynamicParameters();
+
+            p.Add("Title", project.Title);
+            p.Add("Description", project.Description);
+            p.Add("UserId", project.UserId);
+            p.Add("Id", DbType.Int32, direction: ParameterDirection.Output);
+
+            await _dataAccess.SaveData("dbo.spProject_Insert", p, SD.DB);
+
+            return p.Get<int>("Id");
         }
 
         public async Task<List<ProjectModel>> GetUserProjects(string userId)
@@ -30,6 +39,14 @@ namespace CourseCreator.Library.Data
                 ("dbo.spProject_ReadAllForUser", new { UserId = userId }, SD.DB);
 
             return rows;
+        }
+
+        public async Task<ProjectModel> GetProjectById(int id)
+        {
+            var rows = await _dataAccess.LoadData<ProjectModel, dynamic>
+                ("dbo.spProject_ReadOne", new { Id = id }, SD.DB);
+
+            return rows.FirstOrDefault();
         }
     }
 }

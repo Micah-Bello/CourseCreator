@@ -1,14 +1,17 @@
 ﻿@page "/projects"
 
-<h2>Projects</h2>
+<h2 class="m-2">Projects</h2>
 
-<button class="btn btn-primary" @onclick="NewProject">New Project</button>
+<div class="col-lg-5 pr-0 text-right">
+    <button class="btn btn-primary" @onclick="NewProject">New Project</button>
+</div>
+
 
 @if (projects is not null)
 {
     @foreach (var project in projects)
     {
-        <label class="m-2">@project.Title</label>
+        <ProjectComponent Project="@project" />
     }
 }
 else

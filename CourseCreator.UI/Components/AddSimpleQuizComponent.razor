@@ -1,0 +1,44 @@
+﻿<h4 class="m-2">Simple Quiz</h4>
+
+<EditForm Model="quiz" OnValidSubmit="CreateNewSimpleQuiz">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group mx-2 my-3">
+        <label class="h6 font-weight-bold">Question</label>
+        <br />
+        <InputText @bind-Value="quiz.Question" class="col-md-4 form-control" />
+    </div>
+    <div class="form-group m-2">
+        <label class="h6 font-weight-bold">Opinion Question?</label>
+        <InputCheckbox @bind-Value="quiz.IsOpinionQuestion" class="" />
+    </div>
+
+    <div class="form-group mx-2 my-3">
+        <label class="h5 mr-4">Options</label>
+        <button class="btn btn-outline-primary" @onclick="OpenOptionForm">
+            Add New
+        </button>
+        @if (showOptionForm)
+        {
+            <AddSimpleQuizOptionComponent OnSaveOption="CloseOptionForm"/>
+        }
+        else
+        {
+            <div>
+                <label>List added options</label>
+            </div>
+        }
+    </div>
+
+    <div class="row mx-2 my-4">
+        <button class="btn btn-outline-primary mr-1" @onclick="OnCancelClick">
+            Cancel
+        </button>
+        <button class="btn btn-primary" type="submit">
+            Create Quiz
+        </button>
+    </div>
+</EditForm>
+
+
+

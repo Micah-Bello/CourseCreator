@@ -1,0 +1,31 @@
+﻿@page  "/projects/{ProjectId:int}"
+
+@if (notFound)
+{
+    <h4>Project Not Found</h4>
+}
+else
+{
+    @if (project is not null)
+    {
+        <h2 class="m-2">@project.Title</h2>
+
+        <div class="col text-right">
+            <button class="btn btn-primary" @onclick="NewSection">Add Section</button>
+        </div>
+
+        @if (sections is not null)
+        {
+            @foreach (var section in sections)
+            {
+                <SectionComponent Section="@(section)" ProjectId="@ProjectId"/>
+            }
+        }
+    }
+    else
+    {
+        <label class="font-italic">Loading...</label>
+    }
+}
+
+

@@ -1,0 +1,45 @@
+﻿@inject NavigationManager NavMan
+
+<div class="m-2 p-2 shadow-sm">
+    <div class="row">
+        <label class="h4 m-2">@Section.Title</label>
+        <div class="col text-right">
+            <button class="btn btn-outline-primary m-2" @onclick="AddBlock">Add Block</button>
+            <button class="btn btn-outline-primary m-2" @onclick="PreviewSection">Preview</button>
+            <button class="btn btn-outline-primary m-2" @onclick="ExpandCollapse">
+                @(isExpanded ? "Collapse" : "Expand")
+            </button>
+        </div>
+    </div>
+    @if (isExpanded)
+    {
+        <div>
+            <label>Blocks</label>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public SectionModel Section { get; set; }
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    private bool isExpanded = false;
+
+    private void AddBlock()
+    {
+        NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/add-new-block");
+    }
+
+    private void PreviewSection()
+    {
+
+    }
+
+    public void ExpandCollapse()
+    {
+        isExpanded = !isExpanded;
+    }
+
+}

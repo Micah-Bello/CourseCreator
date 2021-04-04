@@ -42,7 +42,9 @@ namespace CourseCreator.UI.Pages
                 Description = project.Description
             };
 
-            await ProjectData.CreateProject(projectToSave);
+            var id = await ProjectData.CreateProject(projectToSave);
+
+            NavMan.NavigateTo($"/projects/{id}");
         }
 
         private void OnCancelClick()
