@@ -61,5 +61,20 @@ namespace CourseCreator.Library.Data
 
             return rows;
         }
+
+        public async Task<SimpleQuizModel> GetQuiz(int id)
+        {
+            _dataAccess.StartTransaction(SD.DB);
+
+            var rows = await _dataAccess.LoadDataInTransaction<SimpleQuizModel, dynamic>
+                ("dbo.spSimpleQuiz_ReadOne", new { Id = id });
+
+            var quiz = rows.FirstOrDefault();
+
+            quiz.Options = await _dataAccess.LoadDataInTransaction<SimpleQuizOptionModel, dynamic>
+                ("dbo.spSimpleQuizOptions_ReadAllForQuiz", new { QuizId = quiz.Id });
+
+            return quiz;
+        }
     }
 }

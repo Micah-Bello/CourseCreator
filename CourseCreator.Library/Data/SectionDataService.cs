@@ -40,5 +40,6 @@ namespace CourseCreator.Library.Data
 
             return rows;
         }
+
     }
 }

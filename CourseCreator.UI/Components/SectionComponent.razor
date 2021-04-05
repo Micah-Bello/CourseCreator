@@ -15,14 +15,18 @@
         {
             @foreach (var block in blocks)
             {
-                <div class="m-2">
-                    <label>@block.OrderNo. @block.Type</label>
+                <div class="m-2 row col-md-5">
+                    <label class="h5 mt-2 pt-2">@block.OrderNo. @block.Type</label>
+                    <div class="col text-right">
+                        <button class="btn btn-outline-primary m-2" @onclick="AddBlock">Edit Block</button>
+                        <button class="btn btn-outline-primary m-2" @onclick="() => PreviewBlock(block.Id)">Preview</button>
+                    </div>
                 </div>
             }
         }
         else
         {
-            <div class="m-2">
+            <div class="m-2 row">
                 <label>No blocks yet...</label>
             </div>
         }
@@ -60,6 +64,11 @@
     private void PreviewSection()
     {
 
+    }
+
+    private void PreviewBlock(int blockId)
+    {
+        NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{blockId}/{(int)Enums.BlockTypes.SimpleQuiz}/preview");
     }
 
     public void ExpandCollapse()

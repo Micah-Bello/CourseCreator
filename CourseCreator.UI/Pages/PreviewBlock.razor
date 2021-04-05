@@ -1,0 +1,13 @@
+﻿@page "/projects/{ProjectId:int}/{SectionId:int}/{BlockId:int}/{BlockType:int}/preview"
+
+<h2 class="m-2">Preview</h2>
+
+@switch (BlockType)
+{
+    case Enums.BlockTypes.SimpleQuiz:
+        <SimpleQuizComponent Quiz="quizBlock" />
+        break;
+    default:
+        break;
+}
+

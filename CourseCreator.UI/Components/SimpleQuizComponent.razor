@@ -1,17 +1,27 @@
-﻿<h3>SimpleQuizComponent</h3>
+﻿<h3 class="m-2">Simple Quiz</h3>
 
-<p class="font-weight-bold h4">
-    @Quiz.Question
-</p>
-
-@foreach (var option in Quiz.Options)
+@if (Quiz is not null)
 {
-    <div class="m-2">
-        <label>@option.Text</label>
-    </div>
+<div class="m-2 p-2">
+    <label class="h4 m-2">
+        @Quiz.Question
+    </label>
+    @foreach (var option in Quiz.Options)
+    {
+        <div class="m-2">
+            <label class="btn btn-outline-info p-3 col-lg-8 col-md-6 col-sm text-left">@option.Text</label>
+        </div>
+    }
+</div>
+}
+else
+{
+    <label>Loading...</label>
 }
 
 @code {
     [Parameter]
     public SimpleQuizModel Quiz { get; set; }
+
+
 }
