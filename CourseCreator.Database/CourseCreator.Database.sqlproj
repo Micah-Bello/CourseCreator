@@ -73,6 +73,7 @@
     <Build Include="dbo\StoredProcedures\spProject_ReadAllForUser.sql" />
     <Build Include="dbo\StoredProcedures\spSection_ReadAllForProject.sql" />
     <Build Include="dbo\StoredProcedures\spProject_ReadOne.sql" />
+    <Build Include="dbo\StoredProcedures\spSimpleQuiz_ReadAllForSection.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\CourseCreator.Database.publish.xml" />

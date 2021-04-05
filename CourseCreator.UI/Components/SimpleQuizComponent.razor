@@ -1,12 +1,14 @@
 ﻿<h3>SimpleQuizComponent</h3>
 
-<p>
+<p class="font-weight-bold h4">
     @Quiz.Question
 </p>
 
 @foreach (var option in Quiz.Options)
 {
-    <label>@option.Text</label>
+    <div class="m-2">
+        <label>@option.Text</label>
+    </div>
 }
 
 @code {

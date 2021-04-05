@@ -1,4 +1,5 @@
 ﻿using CourseCreator.Library.Data;
+using CourseCreator.Library.Models;
 using CourseCreator.UI.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -16,6 +17,9 @@ namespace CourseCreator.UI.Components
         public NavigationManager NavMan { get; set; }
         [Parameter]
         public int ProjectId { get; set; }
+        [Parameter]
+        public int SectionId { get; set; }
+
         private bool showOptionForm = false;
 
         private SimpleQuizDisplayModel quiz = new SimpleQuizDisplayModel();
@@ -25,9 +29,28 @@ namespace CourseCreator.UI.Components
             
         }
 
-        private void CreateNewSimpleQuiz()
+        private async Task CreateNewSimpleQuiz()
         {
+            SimpleQuizModel quizToSave = new SimpleQuizModel
+            {
+                Question = quiz.Question,
+                IsOpinionQuestion = quiz.IsOpinionQuestion,
+                SectionId = SectionId,
+                OrderNo = 2
+            };
 
+            foreach (var option in quiz.Options)
+            {
+                quizToSave.Options.Add(new SimpleQuizOptionModel
+                {
+                    Text = option.Text,
+                    IsAnswer = option.IsAnswer
+                });
+            }
+
+            await SimpleQuizData.CreateSimpleQuiz(quizToSave);
+
+            NavMan.NavigateTo($"/projects/{ProjectId}");
         }
 
         private void OpenOptionForm()
@@ -35,8 +58,26 @@ namespace CourseCreator.UI.Components
             showOptionForm = true;
         }
 
+        private void SetCorrectAnswer(SimpleQuizOptionDisplayModel quizOption)
+        {
+            foreach (var option in quiz.Options)
+            {
+                if (option.IsAnswer)
+                {
+                    option.IsAnswer = false;
+                }
+            }
+
+            quizOption.IsAnswer = true;
+        }
+
         private void HandleAddOption(SimpleQuizOptionDisplayModel quizOption)
         {
+            if (quizOption.IsAnswer)
+            {
+                SetCorrectAnswer(quizOption);
+            }
+
             quiz.Options.Add(quizOption);
             showOptionForm = false;
         }

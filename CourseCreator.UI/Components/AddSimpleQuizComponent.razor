@@ -15,9 +15,9 @@
 
     <div class="form-group mx-2 my-3">
         <label class="h5 mr-4">Options</label>
-        <button class="btn btn-outline-primary" @onclick="OpenOptionForm">
+        <a href="javascript:;" @onclick="OpenOptionForm">
             Add New
-        </button>
+        </a>
         @if (showOptionForm)
         {
             <AddSimpleQuizOptionComponent OnAddOption="@HandleAddOption" />
@@ -49,13 +49,13 @@
                                 @if (!quiz.IsOpinionQuestion)
                                 {
                                     <td>
-                                        <label>
+                                        <a class="@(option.IsAnswer ? "text-success" : "text-danger")" @onclick="() => SetCorrectAnswer(option)">
                                             @(option.IsAnswer ? "Correct" : "Wrong")
-                                        </label>
+                                        </a>
                                     </td>
                                 }
                                 <td>
-                                    <button class="btn btn-sm btn-danger" @onclick="() => RemoveOption(option)">Remove</button>
+                                    <a class="btn btn-sm btn-danger text-white" @onclick="() => RemoveOption(option)">Remove</a>
                                 </td>
                             </tr>
                         }

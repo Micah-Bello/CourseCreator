@@ -1,22 +1,33 @@
 ﻿@inject NavigationManager NavMan
+@inject SimpleQuizDataService SimpleQuizData
 
 <div class="m-2 p-2 shadow-sm">
-    <div class="row">
+    <div class="row" @onclick="ExpandCollapse">
         <label class="h4 m-2">@Section.Title</label>
         <div class="col text-right">
             <button class="btn btn-outline-primary m-2" @onclick="AddBlock">Add Block</button>
             <button class="btn btn-outline-primary m-2" @onclick="PreviewSection">Preview</button>
-            <button class="btn btn-outline-primary m-2" @onclick="ExpandCollapse">
-                @(isExpanded ? "Collapse" : "Expand")
-            </button>
         </div>
     </div>
     @if (isExpanded)
     {
-        <div>
-            <label>Blocks</label>
-        </div>
+        @if (blocks.Count > 0)
+        {
+            @foreach (var block in blocks)
+            {
+                <div class="m-2">
+                    <label>@block.OrderNo. @block.Type</label>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="m-2">
+                <label>No blocks yet...</label>
+            </div>
+        }
     }
+
 </div>
 
 @code {
@@ -26,6 +37,20 @@
     public int ProjectId { get; set; }
 
     private bool isExpanded = false;
+
+    private List<IContentBlock> blocks;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var simpleQuizzes = await SimpleQuizData.GetSectionQuizzes(Section.Id);
+
+        if (simpleQuizzes is not null)
+        {
+            blocks = new List<IContentBlock>();
+            blocks.AddRange(simpleQuizzes);
+        }
+    }
 
     private void AddBlock()
     {

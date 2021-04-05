@@ -1,7 +1,9 @@
 ﻿using CourseCreator.Library.DataAccess;
 using CourseCreator.Library.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +12,54 @@ namespace CourseCreator.Library.Data
 {
     public class SimpleQuizDataService
     {
-        private readonly ISqlDataAccess _dataAcess;
+        private readonly ISqlDataAccess _dataAccess;
 
-        public SimpleQuizDataService(ISqlDataAccess dataAcess)
+        public SimpleQuizDataService(ISqlDataAccess dataAccess)
         {
-            _dataAcess = dataAcess;
+            _dataAccess = dataAccess;
         }
 
         public async Task CreateSimpleQuiz(SimpleQuizModel quiz)
         {
-            await _dataAcess.SaveData("dbo.spSimpleQuiz_Insert", quiz, SD.DB);
+            try
+            {
+                DynamicParameters p = new DynamicParameters();
+
+                p.Add("Question", quiz.Question);
+                p.Add("IsOpinionQuestion", quiz.IsOpinionQuestion);
+                p.Add("OrderNo", quiz.OrderNo);
+                p.Add("SectionId", quiz.SectionId);
+                p.Add("Id", DbType.Int32, direction: ParameterDirection.Output);
+
+                _dataAccess.StartTransaction(SD.DB);
+
+                await _dataAccess.SaveDataInTransaction("dbo.spSimpleQuiz_Insert", p);
+
+                var quizId = p.Get<int>("Id");
+
+                foreach (var option in quiz.Options)
+                {
+                    option.QuizId = quizId;
+
+                    await _dataAccess.SaveDataInTransaction("dbo.spSimpleQuizOptions_Insert", option);
+                }
+
+                _dataAccess.CommitTransaction();
+            }
+            catch
+            {
+                _dataAccess.RollbackTransaction();
+
+                throw;
+            }
+        }
+
+        public async Task<List<SimpleQuizModel>> GetSectionQuizzes(int sectionId)
+        {
+            var rows = await _dataAccess.LoadData<SimpleQuizModel, dynamic>
+                ("dbo.spSimpleQuiz_ReadAllForSection", new { SectionId = sectionId }, SD.DB);
+
+            return rows;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace CourseCreator.Library.Models
         public int OrderNo { get; set; }
         public string Question { get; set; }
         public bool IsOpinionQuestion { get; set; }
-        public List<SimpleQuizOptionModel> Options { get; set; }
-        
+        public List<SimpleQuizOptionModel> Options { get; set; } = new List<SimpleQuizOptionModel>();
+        public string Type { get; } = "Simple Quiz Block";
     }
 }

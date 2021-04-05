@@ -11,5 +11,6 @@ namespace CourseCreator.Library.Models
         public int Id { get; set; }
         public int SectionId { get; set; }
         public int OrderNo { get; set; }
+        public string Type { get; }
     }
 }
