@@ -20,12 +20,47 @@
         </button>
         @if (showOptionForm)
         {
-            <AddSimpleQuizOptionComponent OnSaveOption="CloseOptionForm"/>
+            <AddSimpleQuizOptionComponent OnAddOption="@HandleAddOption" />
         }
         else
         {
-            <div>
-                <label>List added options</label>
+            <div class="my-2">
+                <table class="table">
+                    @if (quiz.Options.Count > 0)
+                    {
+                        <thead>
+                            <tr>
+                                <th>Text</th>
+                                @if (!quiz.IsOpinionQuestion)
+                                {
+                                    <th>Value</th>
+                                }
+                                <th></th>
+                            </tr>
+                        </thead>
+                    }
+                    <tbody>
+                        @foreach (var option in quiz.Options)
+                        {
+                            <tr>
+                                <td>
+                                    <label>@option.Text</label>
+                                </td>
+                                @if (!quiz.IsOpinionQuestion)
+                                {
+                                    <td>
+                                        <label>
+                                            @(option.IsAnswer ? "Correct" : "Wrong")
+                                        </label>
+                                    </td>
+                                }
+                                <td>
+                                    <button class="btn btn-sm btn-danger" @onclick="() => RemoveOption(option)">Remove</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         }
     </div>

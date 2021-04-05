@@ -1,4 +1,4 @@
-﻿<EditForm Model="quizOption" OnValidSubmit="CreateNewSimpleQuiz">
+﻿<EditForm Model="quizOption" OnValidSubmit="AddOption">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="form-group mx-2 my-3">
@@ -21,10 +21,10 @@
     private SimpleQuizOptionDisplayModel quizOption = new SimpleQuizOptionDisplayModel();
 
     [Parameter]
-    public EventCallback OnSaveOption { get; set; }
+    public EventCallback<SimpleQuizOptionDisplayModel> OnAddOption { get; set; }
 
-    private void CreateNewSimpleQuiz()
+    private void AddOption()
     {
-        OnSaveOption.InvokeAsync();
+        OnAddOption.InvokeAsync(quizOption);
     }
 }

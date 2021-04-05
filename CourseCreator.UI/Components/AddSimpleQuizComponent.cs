@@ -25,19 +25,25 @@ namespace CourseCreator.UI.Components
             
         }
 
-        public void CreateNewSimpleQuiz()
+        private void CreateNewSimpleQuiz()
         {
 
         }
 
-        public void OpenOptionForm()
+        private void OpenOptionForm()
         {
             showOptionForm = true;
         }
 
-        public void CloseOptionForm()
+        private void HandleAddOption(SimpleQuizOptionDisplayModel quizOption)
         {
+            quiz.Options.Add(quizOption);
             showOptionForm = false;
+        }
+
+        private void RemoveOption(SimpleQuizOptionDisplayModel quizOption)
+        {
+            quiz.Options.Remove(quizOption);
         }
 
         public void OnCancelClick()
