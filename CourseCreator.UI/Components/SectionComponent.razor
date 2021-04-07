@@ -13,13 +13,15 @@
     {
         @if (blocks.Count > 0)
         {
-            @foreach (var block in blocks)
+            @foreach (var block in blocks.OrderBy(x => x.OrderNo))
             {
-                <div class="m-2 row col-md-5">
-                    <label class="h5 mt-2 pt-2">@block.OrderNo. @block.Type</label>
+                <div class="m-2 row">
+                    <label class="h5 mt-2 pt-2">@block.OrderNo. @block.DisplayTitle</label>
                     <div class="col text-right">
                         <button class="btn btn-outline-primary m-2" @onclick="AddBlock">Edit Block</button>
                         <button class="btn btn-outline-primary m-2" @onclick="() => PreviewBlock(block.Id)">Preview</button>
+                        <i class="fas fa-arrow-up m-2" @onclick="() => MoveUp(block)"></i>
+                        <i class="fas fa-arrow-down m-2" @onclick="() => MoveDown(block)"></i>
                     </div>
                 </div>
             }
@@ -51,6 +53,11 @@
 
         if (simpleQuizzes is not null)
         {
+            foreach (var quiz in simpleQuizzes)
+            {
+                quiz.DisplayTitle = quiz.Question;
+            }
+
             blocks = new List<IContentBlock>();
             blocks.AddRange(simpleQuizzes);
         }
@@ -58,12 +65,46 @@
 
     private void AddBlock()
     {
-        NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/add-new-block");
+        NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{blocks.Count + 1}/add-new-block");
     }
 
     private void PreviewSection()
     {
 
+    }
+
+    private async Task MoveUp(IContentBlock block)
+    {
+        var blockOnTop = blocks.Where(x => x.OrderNo == block.OrderNo - 1).FirstOrDefault();
+
+        if (blockOnTop is not null)
+        {
+            blockOnTop.OrderNo++;
+            block.OrderNo--;
+            await UpdateBlockOrderNo(blockOnTop);
+            await UpdateBlockOrderNo(block);
+        }
+    }
+
+    private async Task MoveDown(IContentBlock block)
+    {
+        var blockBelow = blocks.Where(x => x.OrderNo == block.OrderNo + 1).FirstOrDefault();
+
+        if (blockBelow is not null)
+        {
+            blockBelow.OrderNo--;
+            block.OrderNo++;
+            await UpdateBlockOrderNo(blockBelow);
+            await UpdateBlockOrderNo(block);
+        }
+    }
+
+    private async Task UpdateBlockOrderNo(IContentBlock block)
+    {
+        if (block.GetType() == typeof(SimpleQuizModel))
+        {
+            await SimpleQuizData.UpdateQuizOrderNo((SimpleQuizModel) block);
+        }
     }
 
     private void PreviewBlock(int blockId)

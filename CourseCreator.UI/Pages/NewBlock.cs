@@ -12,5 +12,7 @@ namespace CourseCreator.UI.Pages
         public int SectionId { get; set; }
         [Parameter]
         public int ProjectId { get; set; }
+        [Parameter]
+        public int OrderNo { get; set; }
     }
 }

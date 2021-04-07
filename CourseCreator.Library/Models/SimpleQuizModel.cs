@@ -15,5 +15,6 @@ namespace CourseCreator.Library.Models
         public bool IsOpinionQuestion { get; set; }
         public List<SimpleQuizOptionModel> Options { get; set; } = new List<SimpleQuizOptionModel>();
         public Enums.BlockTypes Type { get; } = Enums.BlockTypes.SimpleQuiz;
+        public string DisplayTitle { get; set; }
     }
 }

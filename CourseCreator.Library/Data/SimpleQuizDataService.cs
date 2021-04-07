@@ -76,5 +76,15 @@ namespace CourseCreator.Library.Data
 
             return quiz;
         }
+
+        public async Task UpdateQuizOrderNo(SimpleQuizModel quizBlock)
+        {
+            var p = new
+            {
+                Id = quizBlock.Id,
+                OrderNo = quizBlock.OrderNo
+            };
+            await _dataAccess.SaveData("dbo.spSimpleQuiz_UpdateOrderNo", p, SD.DB);
+        }
     }
 }

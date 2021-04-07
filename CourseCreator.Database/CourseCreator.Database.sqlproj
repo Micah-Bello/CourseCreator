@@ -76,6 +76,7 @@
     <Build Include="dbo\StoredProcedures\spSimpleQuiz_ReadAllForSection.sql" />
     <Build Include="dbo\StoredProcedures\spSimpleQuiz_ReadOne.sql" />
     <Build Include="dbo\StoredProcedures\spSimpleQuizOptions_ReadAllForQuiz.sql" />
+    <Build Include="dbo\StoredProcedures\spSimpleQuiz_UpdateOrderNo.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\CourseCreator.Database.publish.xml" />

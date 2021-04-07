@@ -19,15 +19,13 @@ namespace CourseCreator.UI.Components
         public int ProjectId { get; set; }
         [Parameter]
         public int SectionId { get; set; }
+        [Parameter]
+        public int OrderNo { get; set; }
 
         private bool showOptionForm = false;
 
         private SimpleQuizDisplayModel quiz = new SimpleQuizDisplayModel();
 
-        protected override async Task OnInitializedAsync()
-        {
-            
-        }
 
         private async Task CreateNewSimpleQuiz()
         {
@@ -36,7 +34,7 @@ namespace CourseCreator.UI.Components
                 Question = quiz.Question,
                 IsOpinionQuestion = quiz.IsOpinionQuestion,
                 SectionId = SectionId,
-                OrderNo = 2
+                OrderNo = OrderNo
             };
 
             foreach (var option in quiz.Options)
