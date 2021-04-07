@@ -16,12 +16,21 @@
             @foreach (var block in blocks.OrderBy(x => x.OrderNo))
             {
                 <div class="m-2 row">
-                    <label class="h5 mt-2 pt-2">@block.OrderNo. @block.DisplayTitle</label>
+                    <label class="h5 mt-2 pt-2">@block.DisplayTitle</label>
                     <div class="col text-right">
-                        <button class="btn btn-outline-primary m-2" @onclick="AddBlock">Edit Block</button>
-                        <button class="btn btn-outline-primary m-2" @onclick="() => PreviewBlock(block.Id)">Preview</button>
-                        <i class="fas fa-arrow-up m-2" @onclick="() => MoveUp(block)"></i>
-                        <i class="fas fa-arrow-down m-2" @onclick="() => MoveDown(block)"></i>
+                        <label class="btn-info btn-sm px-2">Quiz</label>
+                        <a href="javascript:;" class="hvr-icon-fade hvr-grow">
+                            <i class="fas fa-pen hvr-icon m-2" @onclick="AddBlock"></i>
+                        </a>
+                        <a href="javascript:;" class="hvr-icon-fade hvr-grow">
+                            <i class="fas fa-eye hvr-icon hvr-grow m-2" @onclick="() => PreviewBlock(block.Id)"></i>
+                        </a>
+                        <a href="javascript:;" class="hvr-icon-fade hvr-grow">
+                            <i class="fas fa-arrow-up hvr-icon m-2" @onclick="() => MoveUp(block)"></i>
+                        </a>
+                        <a href="javascript:;" class="hvr-icon-fade hvr-grow">
+                            <i class="fas fa-arrow-down hvr-icon m-2" @onclick="() => MoveDown(block)"></i>
+                        </a>
                     </div>
                 </div>
             }
