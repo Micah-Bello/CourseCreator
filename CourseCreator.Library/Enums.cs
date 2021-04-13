@@ -9,7 +9,8 @@ namespace CourseCreator.Library
     {
         public enum BlockTypes
         {
-            SimpleQuiz
+            SimpleQuiz,
+            MatchQuiz
         }
     }
 }

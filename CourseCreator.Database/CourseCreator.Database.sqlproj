@@ -77,6 +77,14 @@
     <Build Include="dbo\StoredProcedures\spSimpleQuiz_ReadOne.sql" />
     <Build Include="dbo\StoredProcedures\spSimpleQuizOptions_ReadAllForQuiz.sql" />
     <Build Include="dbo\StoredProcedures\spSimpleQuiz_UpdateOrderNo.sql" />
+    <Build Include="dbo\Tables\MatchQuiz.sql" />
+    <Build Include="dbo\Tables\MatchQuizOptions.sql" />
+    <Build Include="dbo\StoredProcedures\spMatchQuiz_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spMatchQuiz_ReadAllForSection.sql" />
+    <Build Include="dbo\StoredProcedures\spMatchQuiz_ReadOne.sql" />
+    <Build Include="dbo\StoredProcedures\spMatchQuiz_UpdateOrderNo.sql" />
+    <Build Include="dbo\StoredProcedures\spMatchQuizOptions_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spMatchQuizOptions_ReadAllForQuiz.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\CourseCreator.Database.publish.xml" />

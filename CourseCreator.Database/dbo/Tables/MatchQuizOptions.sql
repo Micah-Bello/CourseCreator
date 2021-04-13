@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[MatchQuizOptions]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	QuizId INT NOT NULL,
+	LeftOption NVARCHAR(500) NOT NULL,
+	RightOption NVARCHAR(500) NOT NULL, 
+    CONSTRAINT [FK_MatchQuizOptions_ToMatchQuiz] FOREIGN KEY (QuizId) REFERENCES MatchQuiz(Id)
+)
