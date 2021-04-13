@@ -1,0 +1,39 @@
+﻿<h3 class="m-2">Match Quiz</h3>
+
+@if (Quiz is not null)
+{
+<div class="m-2 p-2">
+    <label class="h4 m-2">
+        @Quiz.Question
+    </label>
+    <div class="row">
+        <div class="col-6">
+            @foreach (var option in Quiz.Options)
+            {
+                <div class="m-2">
+                    <label class="btn btn-outline-info p-3 col-lg-8 col-md-6 col-sm text-left">@option.LeftOption</label>
+                </div>
+            }
+        </div>
+        <div class="col-6">
+            @foreach (var option in Quiz.Options)
+            {
+                <div class="m-2">
+                    <label class="btn btn-outline-info p-3 col-lg-8 col-md-6 col-sm text-left">@option.RightOption</label>
+                </div>
+            }
+        </div>
+    </div>
+
+    
+</div>
+}
+else
+{
+    <label>Loading...</label>
+}
+
+@code {
+    [Parameter]
+    public MatchQuizModel Quiz { get; set; }
+}

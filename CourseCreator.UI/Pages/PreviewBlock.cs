@@ -21,8 +21,11 @@ namespace CourseCreator.UI.Pages
         public Enums.BlockTypes BlockType { get; set; }
         [Inject]
         public SimpleQuizDataService SimpleQuizData { get; set; }
+        [Inject]
+        public MatchQuizDataService MatchQuizData { get; set; }
 
         private SimpleQuizModel quizBlock;
+        private MatchQuizModel matchQuizBlock;
 
         protected override async Task OnInitializedAsync()
         {
@@ -30,6 +33,9 @@ namespace CourseCreator.UI.Pages
             {
                 case Enums.BlockTypes.SimpleQuiz:
                     quizBlock = await SimpleQuizData.GetQuiz(BlockId);
+                    break;
+                case Enums.BlockTypes.MatchQuiz:
+                    matchQuizBlock = await MatchQuizData.GetQuiz(BlockId);
                     break;
                 default:
                     break;

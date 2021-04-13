@@ -76,7 +76,7 @@ namespace CourseCreator.Library.Data
             return quiz;
         }
 
-        public async Task UpdateQuizOrderNo(SimpleQuizModel quizBlock)
+        public async Task UpdateQuizOrderNo(MatchQuizModel quizBlock)
         {
             var p = new
             {

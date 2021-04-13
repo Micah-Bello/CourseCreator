@@ -1,0 +1,31 @@
+﻿<EditForm Model="quizOption" OnValidSubmit="AddOption">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group mx-2 my-3">
+        <label class="h6 font-weight-bold">Option A</label>
+        <br />
+        <InputText @bind-Value="quizOption.LeftOption" class="col-md-4 form-control" />
+    </div>
+    <div class="form-group mx-2 my-3">
+        <label class="h6 font-weight-bold">Option B</label>
+        <br />
+        <InputText @bind-Value="quizOption.RightOption" class="col-md-4 form-control" />
+    </div>
+    <div class="row mx-2">
+        <button class="btn btn-primary" type="submit">
+            Add
+        </button>
+    </div>
+</EditForm>
+
+@code {
+    private MatchQuizOptionDisplayModel quizOption = new MatchQuizOptionDisplayModel();
+
+    [Parameter]
+    public EventCallback<MatchQuizOptionDisplayModel> OnAddOption { get; set; }
+
+    private void AddOption()
+    {
+        OnAddOption.InvokeAsync(quizOption);
+    }
+}

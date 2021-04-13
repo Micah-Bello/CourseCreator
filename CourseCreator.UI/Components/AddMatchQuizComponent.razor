@@ -1,0 +1,64 @@
+﻿<h4 class="m-2">Match Quiz</h4>
+
+<EditForm Model="quiz" OnValidSubmit="CreateNewMatchQuiz">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group mx-2 my-3">
+        <label class="h6 font-weight-bold">Question</label>
+        <br />
+        <InputText @bind-Value="quiz.Question" class="col-md-4 form-control" />
+    </div>
+
+    <div class="form-group mx-2 my-3">
+        <label class="h5 mr-4">Options</label>
+        <a href="javascript:;" @onclick="OpenOptionForm">
+            Add New
+        </a>
+        @if (showOptionForm)
+        {
+            <AddMatchQuizOptionComponent OnAddOption="@HandleAddOption"/>
+        }
+        else
+        {
+            <div class="my-2">
+                <table class="table">
+                    @if (quiz.Options.Count > 0)
+                    {
+                        <thead>
+                            <tr>
+                                <th>Option A</th>
+                                <th>Option B</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    }
+                    <tbody>
+                        @foreach (var option in quiz.Options)
+                        {
+                        <tr>
+                            <td>
+                                <label>@option.LeftOption</label>
+                            </td>
+                            <td>
+                                <label>@option.RightOption</label>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-danger text-white" @onclick="() => RemoveOption(option)">Remove</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    <div class="row mx-2 my-4">
+        <button class="btn btn-outline-primary mr-1" @onclick="OnCancelClick">
+            Cancel
+        </button>
+        <button class="btn btn-primary" type="submit">
+            Create Quiz
+        </button>
+    </div>
+</EditForm>

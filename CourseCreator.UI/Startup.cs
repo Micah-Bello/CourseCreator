@@ -46,6 +46,7 @@ namespace CourseCreator.UI
             services.AddScoped<ProjectDataService>();
             services.AddScoped<SectionDataService>();
             services.AddScoped<SimpleQuizDataService>();
+            services.AddScoped<MatchQuizDataService>();
             services.AddHttpContextAccessor();
         }
 

@@ -5,26 +5,29 @@
 
 <h1>Hello, world!</h1>
 
-<SimpleQuizComponent Quiz="@testQuiz" />
+<MatchQuizComponent Quiz="@testQuiz" />
 
 
 @code{
-    private SimpleQuizModel testQuiz = new SimpleQuizModel
+    private MatchQuizModel testQuiz = new MatchQuizModel
     {
-        Question = "What is the color of love?",
-        Options = new List<SimpleQuizOptionModel>
+        Question = "Match these names",
+        Options = new List<MatchQuizOptionModel>
     {
-            new SimpleQuizOptionModel
+            new MatchQuizOptionModel
             {
-                Text = "White"
+                LeftOption = "Micah",
+                RightOption = "Bello"
             },
-            new SimpleQuizOptionModel
+            new MatchQuizOptionModel
             {
-                Text = "Red"
+                LeftOption = "Rob",
+                RightOption = "Jobs"
             },
-            new SimpleQuizOptionModel
+            new MatchQuizOptionModel
             {
-                Text = "Blue"
+                LeftOption = "Sue",
+                RightOption = "Storm"
             }
         }
     };

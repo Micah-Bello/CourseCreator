@@ -2,4 +2,25 @@
 
 <h3 class="m-2">Add New Block</h3>
 
-<AddSimpleQuizComponent ProjectId="@ProjectId" SectionId="@SectionId" OrderNo="OrderNo"/>
+<div class="col-5">
+    <EditForm Model="BlockType">
+        <InputSelect @bind-Value="BlockType" class="form-control">
+            @foreach (var type in Enum.GetValues(typeof(Enums.BlockTypes)))
+            {
+                <option value="@type">@type</option>
+            }
+        </InputSelect>
+    </EditForm>
+</div>
+
+@switch (BlockType)
+{
+    case Enums.BlockTypes.SimpleQuiz:
+        <AddSimpleQuizComponent ProjectId="@ProjectId" SectionId="@SectionId" OrderNo="OrderNo" />
+        break;
+    case Enums.BlockTypes.MatchQuiz:
+        <AddMatchQuizComponent ProjectId="@ProjectId" SectionId="@SectionId" OrderNo="OrderNo" />
+        break;
+    default:
+        break;
+}

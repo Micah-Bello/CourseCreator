@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using CourseCreator.Library;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace CourseCreator.UI.Pages
         public int ProjectId { get; set; }
         [Parameter]
         public int OrderNo { get; set; }
+        public Enums.BlockTypes BlockType { get; set; }
     }
 }
