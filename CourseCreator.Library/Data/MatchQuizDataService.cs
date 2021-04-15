@@ -40,7 +40,15 @@ namespace CourseCreator.Library.Data
                 {
                     option.QuizId = quizId;
 
-                    await _dataAccess.SaveDataInTransaction("dbo.spMatchQuizOptions_Insert", option);
+                    var op = new
+                    {
+                        option.Id,
+                        option.QuizId,
+                        option.LeftOption,
+                        option.RightOption
+                    };
+
+                    await _dataAccess.SaveDataInTransaction("dbo.spMatchQuizOptions_Insert", op);
                 }
 
                 _dataAccess.CommitTransaction();

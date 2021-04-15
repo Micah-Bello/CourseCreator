@@ -1,16 +1,19 @@
 ﻿@page "/projects/{ProjectId:int}/{SectionId:int}/{BlockId:int}/{BlockType:int}/preview"
 
 <h2 class="m-2">Preview</h2>
-
-@switch (BlockType)
+@if (ready)
 {
-    case Enums.BlockTypes.SimpleQuiz:
-        <SimpleQuizComponent Quiz="quizBlock" />
-        break;
-    case Enums.BlockTypes.MatchQuiz:
-        <MatchQuizComponent Quiz="matchQuizBlock" />
-        break;
-    default:
-        break;
+    @switch (BlockType)
+    {
+        case Enums.BlockTypes.SimpleQuiz:
+            <SimpleQuizComponent Quiz="quizBlock" />
+            break;
+        case Enums.BlockTypes.MatchQuiz:
+            <MatchQuizComponent Quiz="matchQuizBlock" />
+            break;
+        default:
+            break;
+    }
 }
+
 

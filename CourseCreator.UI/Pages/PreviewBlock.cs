@@ -27,6 +27,8 @@ namespace CourseCreator.UI.Pages
         private SimpleQuizModel quizBlock;
         private MatchQuizModel matchQuizBlock;
 
+        private bool ready;
+
         protected override async Task OnInitializedAsync()
         {
             switch (BlockType)
@@ -40,6 +42,8 @@ namespace CourseCreator.UI.Pages
                 default:
                     break;
             }
+
+            ready = true;
         }
     }
 }
