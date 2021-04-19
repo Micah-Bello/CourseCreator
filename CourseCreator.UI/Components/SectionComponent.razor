@@ -159,6 +159,10 @@
         {
             await MatchQuizData.UpdateQuizOrderNo((MatchQuizModel) block);
         }
+        if (block.GetType() == typeof(VideoModel))
+        {
+            await VideoData.UpdateVideoOrderNo((VideoModel) block);
+        }
     }
 
     private void PreviewBlock(IContentBlock block)
