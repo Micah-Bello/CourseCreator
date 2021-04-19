@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Videos]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[SectionId] INT NOT NULL, 
+    [OrderNo] INT NOT NULL,
+	[Title] NVARCHAR(256) NOT NULL,
+	[VideoUrl] NVARCHAR(256) NOT NULL, 
+    CONSTRAINT [FK_Videos_ToSection] FOREIGN KEY (SectionId) REFERENCES Section(Id)
+)
