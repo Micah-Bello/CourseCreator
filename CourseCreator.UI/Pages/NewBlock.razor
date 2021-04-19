@@ -7,7 +7,7 @@
         <InputSelect @bind-Value="BlockType" class="form-control">
             @foreach (var type in Enum.GetValues(typeof(Enums.BlockTypes)))
             {
-                <option value="@type">@type</option>
+                <option value="@type">@Enums.BlockTypeNames.Where(x => x.Key == (int) type).FirstOrDefault().Value</option>
             }
         </InputSelect>
     </EditForm>
