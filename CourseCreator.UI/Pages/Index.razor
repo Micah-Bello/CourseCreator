@@ -3,36 +3,11 @@
 
 @page "/"
 
-<h1>Hello, world!</h1>
-
-<VideoComponent VideoUrl="https://www.youtube.com/embed/SwVEvBhapl0" />
-
-<MatchQuizComponent Quiz="@testQuiz" />
+<h1>Welcome to Course Creator</h1>
 
 
 @code{
-    private MatchQuizModel testQuiz = new MatchQuizModel
-    {
-        Question = "Match these names",
-        Options = new List<MatchQuizOptionModel>
-    {
-            new MatchQuizOptionModel
-            {
-                LeftOption = "Micah",
-                RightOption = "Bello"
-            },
-            new MatchQuizOptionModel
-            {
-                LeftOption = "Rob",
-                RightOption = "Jobs"
-            },
-            new MatchQuizOptionModel
-            {
-                LeftOption = "Sue",
-                RightOption = "Storm"
-            }
-        }
-    };
+
 
     protected override void OnInitialized()
     {

@@ -1,12 +1,12 @@
-﻿<h3 class="m-2">Video</h3>
+﻿<h3 class="m-2">@Video.Title</h3>
 
-@if (VideoUrl is not null)
+@if (Video.VideoUrl is not null)
 {
-    <iframe width="560" height="315" src="@VideoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="@Video.VideoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 }
 
 
 @code {
     [Parameter]
-    public string VideoUrl { get; set; }
+    public VideoModel Video { get; set; }
 }

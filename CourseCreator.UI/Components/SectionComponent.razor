@@ -1,6 +1,7 @@
 ﻿@inject NavigationManager NavMan
 @inject SimpleQuizDataService SimpleQuizData
 @inject MatchQuizDataService MatchQuizData 
+@inject VideoDataService VideoData
 
 <div class="m-2 p-2 shadow-sm">
     <div class="row" @onclick="ExpandCollapse">
@@ -25,7 +26,10 @@
                                 <label class="btn-info btn-sm px-2">Quiz</label>
                                 break;
                             case Enums.BlockTypes.MatchQuiz:
-                                <label class="btn-dark btn-sm px-2">Match</label>
+                                <label class="btn-dark btn-sm px-2">Match Quiz</label>
+                                break;
+                            case Enums.BlockTypes.Video:
+                                <label class="btn-warning btn-sm px-2">Video</label>
                                 break;
                             default:
                                 break;
@@ -74,6 +78,8 @@
 
         var matchQuizzes = await MatchQuizData.GetSectionQuizzes(Section.Id);
 
+        var videos = await VideoData.GetSectionVideos(Section.Id);
+
         blocks = new List<IContentBlock>();
 
         if (simpleQuizzes is not null)
@@ -94,6 +100,16 @@
             }
 
             blocks.AddRange(matchQuizzes);
+        }
+
+        if (videos is not null)
+        {
+            foreach (var video in videos)
+            {
+                video.DisplayTitle = video.Title;
+            }
+
+            blocks.AddRange(videos);
         }
     }
 

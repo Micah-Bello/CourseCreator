@@ -23,9 +23,12 @@ namespace CourseCreator.UI.Pages
         public SimpleQuizDataService SimpleQuizData { get; set; }
         [Inject]
         public MatchQuizDataService MatchQuizData { get; set; }
+        [Inject]
+        public VideoDataService VideoData { get; set; }
 
         private SimpleQuizModel quizBlock;
         private MatchQuizModel matchQuizBlock;
+        private VideoModel video;
 
         private bool ready;
 
@@ -38,6 +41,9 @@ namespace CourseCreator.UI.Pages
                     break;
                 case Enums.BlockTypes.MatchQuiz:
                     matchQuizBlock = await MatchQuizData.GetQuiz(BlockId);
+                    break;
+                case Enums.BlockTypes.Video:
+                    video = await VideoData.GetVideo(BlockId);
                     break;
                 default:
                     break;
