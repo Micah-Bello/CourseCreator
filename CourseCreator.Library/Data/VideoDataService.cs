@@ -47,15 +47,5 @@ namespace CourseCreator.Library.Data
 
             return rows.FirstOrDefault();
         }
-
-        public async Task UpdateVideoOrderNo(VideoModel video)
-        {
-            var p = new
-            {
-                Id = video.Id,
-                OrderNo = video.OrderNo
-            };
-            await _dataAccess.SaveData("dbo.spVideos_UpdateOrderNo", p, SD.DB);
-        }
     }
 }

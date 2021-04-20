@@ -71,27 +71,28 @@ namespace CourseCreator.Library.Data
 
         public async Task<MatchQuizModel> GetQuiz(int id)
         {
-            _dataAccess.StartTransaction(SD.DB);
-
-            var rows = await _dataAccess.LoadDataInTransaction<MatchQuizModel, dynamic>
-                ("dbo.spMatchQuiz_ReadOne", new { Id = id });
-
-            var quiz = rows.FirstOrDefault();
-
-            quiz.Options = await _dataAccess.LoadDataInTransaction<MatchQuizOptionModel, dynamic>
-                ("dbo.spMatchQuizOptions_ReadAllForQuiz", new { QuizId = quiz.Id });
-
-            return quiz;
-        }
-
-        public async Task UpdateQuizOrderNo(MatchQuizModel quizBlock)
-        {
-            var p = new
+            try
             {
-                Id = quizBlock.Id,
-                OrderNo = quizBlock.OrderNo
-            };
-            await _dataAccess.SaveData("dbo.spMatchQuiz_UpdateOrderNo", p, SD.DB);
+                _dataAccess.StartTransaction(SD.DB);
+
+                var rows = await _dataAccess.LoadDataInTransaction<MatchQuizModel, dynamic>
+                    ("dbo.spMatchQuiz_ReadOne", new { Id = id });
+
+                var quiz = rows.FirstOrDefault();
+
+                quiz.Options = await _dataAccess.LoadDataInTransaction<MatchQuizOptionModel, dynamic>
+                    ("dbo.spMatchQuizOptions_ReadAllForQuiz", new { QuizId = quiz.Id });
+
+                _dataAccess.CommitTransaction();
+
+                return quiz;
+            }
+            catch
+            {
+                _dataAccess.RollbackTransaction();
+
+                throw;
+            }
         }
     }
 }

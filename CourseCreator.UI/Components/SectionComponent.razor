@@ -1,7 +1,8 @@
 ﻿@inject NavigationManager NavMan
 @inject SimpleQuizDataService SimpleQuizData
-@inject MatchQuizDataService MatchQuizData 
+@inject MatchQuizDataService MatchQuizData
 @inject VideoDataService VideoData
+@inject ContentBlockDataService BlockData
 
 <div class="m-2 p-2 shadow-sm">
     <div class="row" @onclick="ExpandCollapse">
@@ -13,9 +14,9 @@
     </div>
     @if (isExpanded)
     {
-        @if (blocks.Count > 0)
+        @if (blocks.Where(b => b.OrderNo != 0).ToList().Count > 0)
         {
-            @foreach (var block in blocks.OrderBy(x => x.OrderNo))
+            @foreach (var block in blocks.Where(b => b.OrderNo != 0).OrderBy(x => x.OrderNo))
             {
                 <div class="m-2 row">
                     <label class="h5 mt-2 pt-2">@block.DisplayTitle</label>
@@ -46,6 +47,9 @@
                         </a>
                         <a href="javascript:;" class="hvr-icon-fade hvr-grow">
                             <i class="fas fa-arrow-down hvr-icon m-2" @onclick="() => MoveDown(block)"></i>
+                        </a>
+                        <a href="javascript:;" class="hvr-icon-fade hvr-grow">
+                            <i class="fas fa-trash hvr-icon m-2" @onclick="() => DeleteBlock(block)"></i>
                         </a>
                     </div>
                 </div>
@@ -118,6 +122,26 @@
         NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{blocks.Count + 1}/add-new-block");
     }
 
+    private async Task DeleteBlock(IContentBlock block)
+    {
+        var num = block.OrderNo;
+
+        block.OrderNo = 0;
+
+        await BlockData.UpdateOrderNo(new List<IContentBlock>() { block });
+
+        await UpdateBlocksBelowDeleted(num);
+    }
+
+    private async Task UpdateBlocksBelowDeleted(int deletedBlockOrderNo)
+    {
+        var blocksToUpdate = blocks.Where(x => x.OrderNo > deletedBlockOrderNo).ToList();
+
+        blocksToUpdate.ForEach(x => x.OrderNo--);
+
+        await BlockData.UpdateOrderNo(blocksToUpdate);
+    }
+
     private void PreviewSection()
     {
 
@@ -131,8 +155,14 @@
         {
             blockOnTop.OrderNo++;
             block.OrderNo--;
-            await UpdateBlockOrderNo(blockOnTop);
-            await UpdateBlockOrderNo(block);
+
+            var blocksToUpdate = new List<IContentBlock>()
+    {
+                blockOnTop,
+                block
+            };
+
+            await BlockData.UpdateOrderNo(blocksToUpdate);
         }
     }
 
@@ -144,30 +174,20 @@
         {
             blockBelow.OrderNo--;
             block.OrderNo++;
-            await UpdateBlockOrderNo(blockBelow);
-            await UpdateBlockOrderNo(block);
-        }
-    }
 
-    private async Task UpdateBlockOrderNo(IContentBlock block)
+            var blocksToUpdate = new List<IContentBlock>()
     {
-        if (block.GetType() == typeof(SimpleQuizModel))
-        {
-            await SimpleQuizData.UpdateQuizOrderNo((SimpleQuizModel) block);
-        }
-        if (block.GetType() == typeof(MatchQuizModel))
-        {
-            await MatchQuizData.UpdateQuizOrderNo((MatchQuizModel) block);
-        }
-        if (block.GetType() == typeof(VideoModel))
-        {
-            await VideoData.UpdateVideoOrderNo((VideoModel) block);
+                blockBelow,
+                block
+            };
+
+            await BlockData.UpdateOrderNo(blocksToUpdate);
         }
     }
 
     private void PreviewBlock(IContentBlock block)
     {
-        NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{block.Id}/{(int) block.Type}/preview");
+        NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{block.Id}/{(int)block.Type}/preview");
     }
 
     public void ExpandCollapse()
