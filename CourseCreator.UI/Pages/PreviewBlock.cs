@@ -12,10 +12,6 @@ namespace CourseCreator.UI.Pages
     public partial class PreviewBlock
     {
         [Parameter]
-        public int ProjectId { get; set; }
-        [Parameter]
-        public int SectionId { get; set; }
-        [Parameter]
         public int BlockId { get; set; }
         [Parameter]
         public Enums.BlockTypes BlockType { get; set; }

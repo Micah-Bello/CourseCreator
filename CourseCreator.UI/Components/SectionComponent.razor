@@ -119,7 +119,7 @@
 
     private void AddBlock()
     {
-        NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{blocks.Count + 1}/add-new-block");
+        NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{blocks.Where(b => b.OrderNo != 0).ToList().Count + 1}/add-new-block");
     }
 
     private async Task DeleteBlock(IContentBlock block)
@@ -157,7 +157,7 @@
             block.OrderNo--;
 
             var blocksToUpdate = new List<IContentBlock>()
-    {
+{
                 blockOnTop,
                 block
             };
@@ -176,7 +176,7 @@
             block.OrderNo++;
 
             var blocksToUpdate = new List<IContentBlock>()
-    {
+{
                 blockBelow,
                 block
             };
@@ -187,7 +187,7 @@
 
     private void PreviewBlock(IContentBlock block)
     {
-        NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{block.Id}/{(int)block.Type}/preview");
+        NavMan.NavigateTo($"/projects/{block.Id}/{(int)block.Type}/preview");
     }
 
     public void ExpandCollapse()

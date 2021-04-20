@@ -73,12 +73,19 @@ namespace CourseCreator.Library.Data
 
                 var quiz = rows.FirstOrDefault();
 
-                quiz.Options = await _dataAccess.LoadDataInTransaction<SimpleQuizOptionModel, dynamic>
+                if (quiz is not null)
+                {
+                    quiz.Options = await _dataAccess.LoadDataInTransaction<SimpleQuizOptionModel, dynamic>
                     ("dbo.spSimpleQuizOptions_ReadAllForQuiz", new { QuizId = quiz.Id });
 
-                _dataAccess.CommitTransaction();
+                    _dataAccess.CommitTransaction();
 
-                return quiz;
+                    return quiz;
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch
             {

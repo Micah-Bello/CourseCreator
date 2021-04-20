@@ -1,4 +1,4 @@
-﻿@page "/projects/{ProjectId:int}/{SectionId:int}/{BlockId:int}/{BlockType:int}/preview"
+﻿@page "/projects/{BlockId:int}/{BlockType:int}/preview"
 
 <h2 class="m-2">Preview</h2>
 @if (ready)
@@ -6,13 +6,22 @@
     @switch (BlockType)
     {
         case Enums.BlockTypes.SimpleQuiz:
-            <SimpleQuizComponent Quiz="quizBlock" />
+            if (quizBlock is not null)
+            {
+                <SimpleQuizComponent Quiz="quizBlock" />
+            }
             break;
         case Enums.BlockTypes.MatchQuiz:
-            <MatchQuizComponent Quiz="matchQuizBlock" />
+            if (matchQuizBlock is not null)
+            {
+                <MatchQuizComponent Quiz="matchQuizBlock" />
+            }
             break;
         case Enums.BlockTypes.Video:
-            <VideoComponent Video="video" />
+            if (video is not null)
+            {
+                <VideoComponent Video="video" />
+            }
             break;
         default:
             break;
