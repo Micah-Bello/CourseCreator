@@ -1,5 +1,6 @@
 ﻿using CourseCreator.Library.Data;
 using CourseCreator.Library.Models;
+using CourseCreator.UI.Data;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,7 @@ namespace CourseCreator.UI.Components
                 foreach (var quiz in simpleQuizzes)
                 {
                     quiz.DisplayTitle = quiz.Question;
+                    quiz.Options = await SimpleQuizData.GetQuizOptions(quiz.Id);
                 }
 
                 blocks.AddRange(simpleQuizzes);
@@ -57,6 +59,7 @@ namespace CourseCreator.UI.Components
                 foreach (var quiz in matchQuizzes)
                 {
                     quiz.DisplayTitle = quiz.Question;
+                    quiz.Options = await MatchQuizData.GetQuizOptions(quiz.Id);
                 }
 
                 blocks.AddRange(matchQuizzes);
@@ -100,7 +103,9 @@ namespace CourseCreator.UI.Components
 
         private void PreviewSection()
         {
+            BlockData.Blocks = activeBlocks;
 
+            NavMan.NavigateTo($"/projects/view/0/");
         }
 
         private async Task MoveUp(IContentBlock block)
@@ -143,7 +148,9 @@ namespace CourseCreator.UI.Components
 
         private void PreviewBlock(IContentBlock block)
         {
-            NavMan.NavigateTo($"/projects/{block.Id}/{(int)block.Type}/preview");
+            BlockData.Blocks = activeBlocks;
+
+            NavMan.NavigateTo($"/projects/view/{block.OrderNo}/");
         }
 
         public void ExpandCollapse()

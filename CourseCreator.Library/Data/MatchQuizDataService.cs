@@ -101,5 +101,13 @@ namespace CourseCreator.Library.Data
                 throw;
             }
         }
+
+        public async Task<List<MatchQuizOptionModel>> GetQuizOptions(int quizId)
+        {
+            var rows = await _dataAccess.LoadData<MatchQuizOptionModel, dynamic>
+                ("dbo.spMatchQuizOptions_ReadAllForQuiz", new { QuizId = quizId }, SD.DB);
+
+            return rows;
+        }
     }
 }

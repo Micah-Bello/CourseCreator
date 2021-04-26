@@ -94,7 +94,17 @@ namespace CourseCreator.Library.Data
                 throw;
             }
 
-            
+
+        }
+
+        public async Task<List<SimpleQuizOptionModel>> GetQuizOptions(int quizId)
+        {
+            var rows = await _dataAccess.LoadData<SimpleQuizOptionModel, dynamic>
+                ("dbo.spSimpleQuizOptions_ReadAllForQuiz", new { QuizId = quizId }, SD.DB);
+
+            return rows;
         }
     }
+
+
 }
