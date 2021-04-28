@@ -4,7 +4,7 @@ AS
 begin
 	set nocount on;
 
-	select [Id], [UserId], [Title], [Description]
+	select [Id], [UserId], [Title], [Description], [IsPublished]
 	from dbo.Project
 	where @Id = Id;
 end

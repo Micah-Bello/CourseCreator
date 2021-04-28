@@ -9,8 +9,7 @@
     <ProjectGuid>{20479252-bd0c-47e7-9d85-5977fca07173}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
-    <RootPath>
-    </RootPath>
+    <RootPath />
     <RootNamespace>CourseCreator.Database</RootNamespace>
     <AssemblyName>CourseCreator.Database</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
@@ -48,7 +47,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
   </PropertyGroup>
@@ -90,6 +88,8 @@
     <Build Include="dbo\StoredProcedures\spVideos_ReadAllForSection.sql" />
     <Build Include="dbo\StoredProcedures\spVideos_ReadOne.sql" />
     <Build Include="dbo\StoredProcedures\spVideos_UpdateOrderNo.sql" />
+    <Build Include="dbo\StoredProcedures\spProject_ReadAllPublished.sql" />
+    <Build Include="dbo\StoredProcedures\spProject_UpdatePublishedStatus.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\CourseCreator.Database.publish.xml" />

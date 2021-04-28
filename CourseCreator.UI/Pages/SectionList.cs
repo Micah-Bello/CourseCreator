@@ -1,4 +1,5 @@
-﻿using CourseCreator.Library.Data;
+﻿using Blazored.Toast.Services;
+using CourseCreator.Library.Data;
 using CourseCreator.Library.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -13,6 +14,7 @@ namespace CourseCreator.UI.Pages
         [Inject] public NavigationManager NavMan { get; set; }
         [Inject] public SectionDataService SectionData { get; set; }
         [Inject] public ProjectDataService ProjectData { get; set; }
+        [Inject] public IToastService ToastService { get; set; }
 
 
         [Parameter]
@@ -39,6 +41,20 @@ namespace CourseCreator.UI.Pages
         public void NewSection()
         {
             NavMan.NavigateTo($"projects/add-new-section/{ProjectId}");
+        }
+
+        public async Task PublishProject()
+        {
+            project.IsPublished = true;
+            await ProjectData.UpdatePublishStatus(project);
+            ToastService.ShowSuccess("Project Published Successfully", "-");
+        }
+
+        public async Task UnpublishProject()
+        {
+            project.IsPublished = false;
+            await ProjectData.UpdatePublishStatus(project);
+            ToastService.ShowToast(ToastLevel.Success, "Done", "-");
         }
     }
 }

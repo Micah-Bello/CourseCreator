@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using CourseCreator.Library.Data;
 using CourseCreator.Library.DataAccess;
 using CourseCreator.UI.Areas.Identity;
@@ -50,6 +51,7 @@ namespace CourseCreator.UI
             services.AddScoped<VideoDataService>();
             services.AddScoped<ContentBlockDataService>();
             services.AddHttpContextAccessor();
+            services.AddBlazoredToast();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

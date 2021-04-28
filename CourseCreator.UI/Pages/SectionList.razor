@@ -11,8 +11,18 @@ else
         <h2 class="m-2">@project.Title</h2>
 
         <div class="col text-right">
-            <button class="btn btn-primary" @onclick="NewSection">Add Section</button>
+            <button class="btn btn-primary mr-2" @onclick="NewSection">Add Section</button>
+
+            @if (project.IsPublished)
+            {
+                <button class="btn btn-secondary" @onclick="UnpublishProject">Unpublish Project</button>
+            }
+            else
+            {
+                <button class="btn btn-success" @onclick="PublishProject">Publish Project</button>
+            }
         </div>
+
 
         @if (sections is not null)
         {

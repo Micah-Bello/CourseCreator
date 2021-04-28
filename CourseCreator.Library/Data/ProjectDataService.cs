@@ -33,6 +33,19 @@ namespace CourseCreator.Library.Data
             return p.Get<int>("Id");
         }
 
+        public async Task UpdatePublishStatus(ProjectModel project)
+        {
+            await _dataAccess.SaveData("dbo.spProject_UpdatePublishedStatus", new { Id = project.Id, IsPublished = project.IsPublished }, SD.DB);
+        }
+
+        public async Task<List<ProjectModel>> GetPublishedProjects()
+        {
+            var rows = await _dataAccess.LoadData<ProjectModel, dynamic>
+                ("dbo.spProject_ReadAllPublished", new { }, SD.DB);
+
+            return rows;
+        }
+
         public async Task<List<ProjectModel>> GetUserProjects(string userId)
         {
             var rows = await _dataAccess.LoadData<ProjectModel, dynamic>
