@@ -26,6 +26,7 @@ namespace CourseCreator.Library.Data
             p.Add("Title", project.Title);
             p.Add("Description", project.Description);
             p.Add("UserId", project.UserId);
+            p.Add("IsPublished", project.IsPublished);
             p.Add("Id", DbType.Int32, direction: ParameterDirection.Output);
 
             await _dataAccess.SaveData("dbo.spProject_Insert", p, SD.DB);

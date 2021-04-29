@@ -1,20 +1,29 @@
 ﻿@using Microsoft.Extensions.Logging
 @inject ProjectDataService ProjectData
+@inject NavigationManager NavMan 
 
 @page "/"
+<div class="container">
+    <h2>Published Courses</h2>
 
-<h1>Welcome to Course Creator</h1>
-
-@if (publishedProjects is not null)
-{
-    @foreach (var project in publishedProjects)
+    @if (publishedProjects is not null)
     {
-        <div>
-            <label>@project.Title</label>
-        </div>
-    }
-}
 
+        <div class="row mt-3">
+            @foreach (var project in publishedProjects)
+            {
+                <a href="javascript:;" class="col-xs-12 col-sm-6 col-md-4 rounded border shadow-sm m-2 p-0" @onclick="() => ViewProject(project.Id)">
+                    <img src="/img/placeholder.jpg" class="img-fluid mb-2 rounded-top" />
+                    <div class="p-3">
+                        <h4>@project.Title</h4>
+                        <p>@project.Description</p>
+                    </div>
+                </a>
+            }
+        </div>
+
+    }
+</div>
 
 @code{
     private List<ProjectModel> publishedProjects;
@@ -22,5 +31,10 @@
     protected override async Task OnInitializedAsync()
     {
         publishedProjects = await ProjectData.GetPublishedProjects();
+    }
+
+    private void ViewProject(int projectId)
+    {
+        NavMan.NavigateTo($"courses/{projectId}/view");
     }
 }

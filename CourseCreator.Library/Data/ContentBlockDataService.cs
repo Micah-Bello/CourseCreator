@@ -10,7 +10,7 @@ namespace CourseCreator.Library.Data
 {
     public class ContentBlockDataService
     {
-        public List<IContentBlock> Blocks { get; set; }
+        public List<IContentBlock> Blocks { get; set; } = new();
 
         private readonly ISqlDataAccess _dataAccess;
 

@@ -1,0 +1,29 @@
+﻿@page "/courses/{ProjectId:int}/view"
+
+
+
+@if (notFound)
+{
+    <h4>Course Not Found</h4>
+}
+else
+{
+    @if (project is not null)
+    {
+        <h3>@project.Title</h3>
+
+        <h4 class="m-2 mt-3">Course Curriculum</h4>
+
+        @if (sections is not null)
+        {
+            @foreach (var section in sections)
+            {
+                <SectionViewComponent Section="@(section)" ProjectId="@ProjectId" />
+            }
+        }
+    }
+    else
+    {
+        <label class="font-italic">Loading...</label>
+    }
+}
