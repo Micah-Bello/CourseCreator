@@ -25,6 +25,8 @@ namespace CourseCreator.UI.Components
         public SectionModel Section { get; set; }
         [Parameter]
         public int ProjectId { get; set; }
+        [Parameter]
+        public int SectionNo { get; set; }
 
         private bool isExpanded = false;
 

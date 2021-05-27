@@ -3,22 +3,23 @@
 @inject NavigationManager NavMan 
 
 @page "/"
-<div class="container">
-    <h2>Published Courses</h2>
-
+<div class="container-fluid">
     @if (publishedProjects is not null)
     {
+        <h3>Published Projects</h3>
 
-        <div class="row mt-3">
+        <div class="row mt-3 mx-auto">
             @foreach (var project in publishedProjects)
             {
-                <a href="javascript:;" class="col-xs-12 col-sm-6 col-md-4 rounded border shadow-sm m-2 p-0" @onclick="() => ViewProject(project.Id)">
-                    <img src="/img/placeholder.jpg" class="img-fluid mb-2 rounded-top" />
+            <div class="col-sm-12 col-md-5 col-xl-3 rounded border shadow-sm p-0 m-2">
+                <a href="javascript:;" class="card-link text-dark p-0" @onclick="() => ViewProject(project.Id)">
+                    <ImageComponent SearchTerm="@project.Title.Substring(0, 1)" />
                     <div class="p-3">
                         <h4>@project.Title</h4>
                         <p>@project.Description</p>
                     </div>
                 </a>
+            </div>
             }
         </div>
 

@@ -31,7 +31,7 @@ namespace CourseCreator.UI.Components
 
         private List<IContentBlock> blocks;
 
-        private List<IContentBlock> activeBlocks => blocks.Where(b => b.OrderNo != 0).ToList();
+        private List<IContentBlock> ActiveBlocks => blocks is null ? new() : blocks.Where(b => b.OrderNo != 0).ToList();
 
         protected override async Task OnInitializedAsync()
         {
@@ -78,7 +78,7 @@ namespace CourseCreator.UI.Components
 
         private void AddBlock()
         {
-            NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{blocks.Where(b => b.OrderNo != 0).ToList().Count + 1}/add-new-block");
+            NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{ActiveBlocks.Count + 1}/add-new-block");
         }
 
         private async Task DeleteBlock(IContentBlock block)
@@ -103,14 +103,14 @@ namespace CourseCreator.UI.Components
 
         private void PreviewSection()
         {
-            BlockData.Blocks = activeBlocks;
+            BlockData.Blocks = ActiveBlocks;
 
             NavMan.NavigateTo($"/projects/view/0/");
         }
 
         private async Task MoveUp(IContentBlock block)
         {
-            var blockOnTop = activeBlocks.Where(x => x.OrderNo == block.OrderNo - 1).FirstOrDefault();
+            var blockOnTop = ActiveBlocks.Where(x => x.OrderNo == block.OrderNo - 1).FirstOrDefault();
 
             if (blockOnTop is not null)
             {
@@ -129,7 +129,7 @@ namespace CourseCreator.UI.Components
 
         private async Task MoveDown(IContentBlock block)
         {
-            var blockBelow = activeBlocks.Where(x => x.OrderNo == block.OrderNo + 1).FirstOrDefault();
+            var blockBelow = ActiveBlocks.Where(x => x.OrderNo == block.OrderNo + 1).FirstOrDefault();
 
             if (blockBelow is not null)
             {
@@ -148,7 +148,7 @@ namespace CourseCreator.UI.Components
 
         private void PreviewBlock(IContentBlock block)
         {
-            BlockData.Blocks = activeBlocks;
+            BlockData.Blocks = ActiveBlocks;
 
             NavMan.NavigateTo($"/projects/view/{block.OrderNo}/");
         }

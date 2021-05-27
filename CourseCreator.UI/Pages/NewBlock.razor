@@ -2,16 +2,19 @@
 
 <h3 class="m-2">Add New Block</h3>
 
-<div class="col-5">
-    <EditForm Model="BlockType">
-        <InputSelect @bind-Value="BlockType" class="form-control">
-            @foreach (var type in Enum.GetValues(typeof(Enums.BlockTypes)))
-            {
-                <option value="@type">@Enums.BlockTypeNames.Where(x => x.Key == (int) type).FirstOrDefault().Value</option>
-            }
-        </InputSelect>
-    </EditForm>
+<div class="row mb-3">
+    <div class="col-5">
+        <EditForm Model="BlockType">
+            <InputSelect @bind-Value="BlockType" class="form-control">
+                @foreach (var type in Enum.GetValues(typeof(Enums.BlockTypes)))
+                {
+                    <option value="@type">@Enums.BlockTypeNames.Where(x => x.Key == (int)type).FirstOrDefault().Value</option>
+                }
+            </InputSelect>
+        </EditForm>
+    </div>
 </div>
+
 
 @switch (BlockType)
 {

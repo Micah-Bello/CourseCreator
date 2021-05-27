@@ -1,0 +1,12 @@
+﻿<img src="@Url" class="card-img-top img-fluid mb-2 rounded-top" />
+
+@code {
+    private string baseUrl = "https://source.unsplash.com/440x280/?programming,computer,";
+
+    public string Url { get => $"{baseUrl}{SearchTerm}"; }
+
+
+
+    [Parameter]
+    public string SearchTerm { get; set; } = "";
+}

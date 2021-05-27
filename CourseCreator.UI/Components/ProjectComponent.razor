@@ -1,10 +1,12 @@
 ﻿@inject NavigationManager NavMan
 
-<div class="m-2 border p-2 shadow-sm rounded">
-    <label class="h4 m-2">@Project.Title</label>
-    <div class="text-md-right">
-        <button class="btn btn-outline-primary m-2" @onclick="EditProject">Edit</button>
-        <button class="btn btn-outline-primary m-2" @onclick="PreviewProject">Preview</button>
+<div class="card m-2 col-md-4">
+    <div class="card-body">
+        <label class="h4 m-2 card-title">@Project.Title</label>
+        <div class="row mx-1">
+            <button class="btn btn-primary col m-2" @onclick="EditProject">Edit</button>
+            <button class="btn btn-success col m-2" @onclick="PreviewProject">Preview</button>
+        </div>
     </div>
 </div>
 

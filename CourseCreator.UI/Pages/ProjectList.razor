@@ -10,13 +10,18 @@
 
     @if (projects is not null)
     {
-        @foreach (var project in projects)
-        {
-            <ProjectComponent Project="@project" />
-        }
+        <div class="row">
+            @foreach (var project in projects)
+            {
+
+                <ProjectComponent Project="@project" />
+
+            }
+        </div>
     }
     else
     {
         <label class="font-italic">Loading...</label>
     }
 </div>
+

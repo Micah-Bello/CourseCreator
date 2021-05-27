@@ -1,33 +1,33 @@
 ﻿<div class="m-2 p-2 shadow-sm">
     <div>
-        <label class="h5 font-weight-bold m-2">@Section.Title</label>
+        <label class="h5 font-weight-bold m-2">Section @SectionNo - @Section.Title</label>
     </div>
     @if (activeBlocks?.Count > 0)
     {
         @foreach (var block in activeBlocks.OrderBy(x => x.OrderNo))
         {
             <div class="m-2 row">
-                <label class="h5 mt-2 pt-2">@block.DisplayTitle</label>
-                <div>
+                <div class="mx-2 mt-2">
                     @switch (block.Type)
                     {
                         case Enums.BlockTypes.SimpleQuiz:
-                            <label class="btn-info btn-sm px-2 ml-2 mt-2">Quiz</label>
+                            <i class="fas fa-question-circle m-2"></i>
                             break;
                         case Enums.BlockTypes.MatchQuiz:
-                            <label class="btn-dark btn-sm px-2 ml-2 mt-2">Match Quiz</label>
+                            <i class="fas fa-puzzle-piece m-2"></i>
                             break;
                         case Enums.BlockTypes.Video:
-                            <label class="btn-warning btn-sm px-2 ml-2 mt-2">Video</label>
+                            <i class="fas fa-video m-2"></i>
                             break;
                         default:
                             break;
                     }
                 </div>
+                <label class="h5 mt-2 pt-2">@block.DisplayTitle</label>
 
                 <div class="col text-right">
 
-                    <button class="btn btn-sm btn-warning text-white">Start</button>
+                    <button class="btn btn-sm btn-primary text-white">Start</button>
                 </div>
             </div>
         }
