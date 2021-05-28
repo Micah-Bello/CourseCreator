@@ -2,6 +2,7 @@
 using CourseCreator.Library.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -18,8 +19,10 @@ namespace CourseCreator.UI.Pages
         public NavigationManager NavMan { get; set; }
         [Inject]
         public ProjectDataService ProjectData { get; set; }
-        [Inject]
-        public IHttpContextAccessor ContextAccessor { get; set; }
+
+        [CascadingParameter]
+        private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
         [Inject]
         public UserManager<IdentityUser> UserManager { get; set; }
 
@@ -28,7 +31,9 @@ namespace CourseCreator.UI.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            User = await UserManager.GetUserAsync(ContextAccessor.HttpContext.User);
+            var authState = await AuthenticationStateTask;
+
+            User = await UserManager.GetUserAsync(authState.User);
 
             projects = await ProjectData.GetUserProjects(User.Id);
         }
