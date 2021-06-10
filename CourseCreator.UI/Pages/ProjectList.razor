@@ -1,5 +1,5 @@
 ﻿@page "/projects"
-
+@attribute [Authorize(Roles = "Instructor")]
 <div class="container">
     <h2 class="m-2">Projects</h2>
 
@@ -24,4 +24,6 @@
         <label class="font-italic">Loading...</label>
     }
 </div>
+
+
 

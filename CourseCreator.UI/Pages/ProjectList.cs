@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CourseCreator.UI.Pages
 {
-    [Authorize]
+    [Authorize (Roles = "Instructor")]
     public partial class ProjectList
     {
         [Inject]
