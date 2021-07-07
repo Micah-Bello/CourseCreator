@@ -86,3 +86,11 @@ a, .btn-link {
     .hvr-icon-fade:hover .hvr-icon, .hvr-icon-fade:focus .hvr-icon, .hvr-icon-fade:active .hvr-icon {
         color: #0F9E5E;
     }
+
+.themecolor {
+    background-color: darkslategray;
+}
+
+.themecolorlight {
+    background-color: cadetblue;
+}

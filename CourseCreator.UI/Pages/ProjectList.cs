@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace CourseCreator.UI.Pages
 {
-    [Authorize (Roles = "Instructor")]
     public partial class ProjectList
     {
         [Inject]
@@ -41,6 +40,16 @@ namespace CourseCreator.UI.Pages
         private void NewProject()
         {
             NavMan.NavigateTo("/projects/add-new");
+        }
+
+        public void EditProject(int projectId)
+        {
+            NavMan.NavigateTo($"/projects/{projectId}");
+        }
+
+        public void PreviewProject()
+        {
+
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿@page "/courses/{ProjectId:int}/view"
 
-
-
 @if (notFound)
 {
     <h4>Course Not Found</h4>
@@ -10,7 +8,30 @@ else
 {
     @if (project is not null)
     {
-        <h3>@project.Title</h3>
+        <div class="row">
+            <div class="col-lg-6">
+                <ImageComponent SearchTerm="@project.Title.Substring(0, 1)" />
+            </div>
+            
+            <div class="col-lg-6 card">
+                <div class="card-header bg-dark">
+                    <h3 class="card-title text-white">@project.Title</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text h5">@project.Description</p>
+                    <p class="font-weight-bold">@sections.Count sections.</p>
+                </div>
+                <AuthorizeView>
+                    <Authorized>
+                        <button class="btn btn-lg btn-success">Enroll</button>
+                    </Authorized>
+                    <NotAuthorized>
+                        <a href="Identity/Account/Login" class="btn btn-lg btn-success">Enroll</a>                    
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </div>
+
 
         <h4 class="m-2 mt-3">Course Curriculum</h4>
 

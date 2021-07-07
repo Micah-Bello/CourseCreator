@@ -1,28 +1,68 @@
 ﻿@page "/projects"
 @attribute [Authorize(Roles = "Instructor")]
-<div class="container">
-    <h2 class="m-2">Projects</h2>
+<div class="">
+    <div class="d-flex mb-2">
+        <h2 class="mt-2">Projects</h2>
 
-    <div class="text-right">
-        <button class="btn btn-primary" @onclick="NewProject">New Project</button>
+        <div class="ml-auto">
+            <button class="btn themecolorlight text-white" @onclick="NewProject">New Project</button>
+        </div>
     </div>
 
+    <table class="sortable table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
 
-    @if (projects is not null)
-    {
-        <div class="row">
-            @foreach (var project in projects)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (projects is not null)
             {
-
-                <ProjectComponent Project="@project" />
-
+                @foreach (var project in projects)
+                {
+                    <tr>
+                        <td>
+                            <a class="text-success font-weight-bold h6" href="javascript:;" @onclick="() => EditProject(project.Id)">
+                                @project.Title
+                            </a>
+                        </td>
+                        <td>
+                            @if (project.IsPublished)
+                            {
+                                <label class="badge badge-success">PUBLISHED</label>
+                            }
+                            else
+                            {
+                                <label class="badge badge-warning">DRAFT</label>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <button class="btn btn-sm btn-outline-success" @onclick="PreviewProject">Preview</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
             }
-        </div>
-    }
-    else
-    {
-        <label class="font-italic">Loading...</label>
-    }
+            else
+            {
+                <tr>
+                    <td>
+                        <label class="font-italic">Loading...</label>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </div>
 
 

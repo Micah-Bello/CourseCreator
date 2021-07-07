@@ -1,9 +1,9 @@
-﻿<div class="card p-2 m-2">
-    <div class="row card-body px-3">
-        <label class="h4 card-title m-2" @onclick="ExpandCollapse">@Section.Title</label>
+﻿<div class="p-2 m-2">
+    <div class="row px-3 my-2">
+        <label class="h5 font-weight-bold m-2" @onclick="ExpandCollapse">@Section.Title</label>
         <div class="col text-right">
-            <button class="btn btn-outline-primary m-2" @onclick="AddBlock">Add Block</button>
-            <button class="btn btn-outline-primary m-2" @onclick="PreviewSection">Preview</button>
+            <button class="btn btn-sm btn-outline-primary m-2" @onclick="AddBlock">Add Block</button>
+            <button class="btn btn-sm btn-outline-primary m-2" @onclick="PreviewSection">Preview</button>
         </div>
     </div>
     @if (isExpanded)
@@ -12,19 +12,19 @@
         {
             @foreach (var block in ActiveBlocks.OrderBy(x => x.OrderNo))
             {
-                <div class="m-2 row">
-                    <label class="h5 mt-2 pt-2">@block.DisplayTitle</label>
+                <div class="mx-4 row">
+                    <label class="h6 mt-2 pt-2">@block.DisplayTitle</label>
                     <div class="col text-right">
                         @switch (block.Type)
                         {
                             case Enums.BlockTypes.SimpleQuiz:
-                                <label class="btn-info btn-sm px-2">Quiz</label>
+                                <label class="badge badge-info px-2 mx-1">Quiz</label>
                                 break;
                             case Enums.BlockTypes.MatchQuiz:
-                                <label class="btn-dark btn-sm px-2">Match Quiz</label>
+                                <label class="badge badge-success px-2 mx-1">Match</label>
                                 break;
                             case Enums.BlockTypes.Video:
-                                <label class="btn-warning btn-sm px-2">Video</label>
+                                <label class="badge badge-warning px-2 mx-1">Video</label>
                                 break;
                             default:
                                 break;
@@ -47,6 +47,7 @@
                         </a>
                     </div>
                 </div>
+                <hr />
             }
         }
         else

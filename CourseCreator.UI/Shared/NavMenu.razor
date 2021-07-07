@@ -9,17 +9,17 @@
     <ul class="nav flex-column">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-home" aria-hidden="true"></span> All Courses
             </NavLink>
         </li>
         <AuthorizeView Roles="Instructor">
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="/projects">
-                    <span class="oi oi-project" aria-hidden="true"></span> Projects
+                    <span class="oi oi-project" aria-hidden="true"></span> My Projects
                 </NavLink>
             </li>
         </AuthorizeView>
-        <AuthorizeView Roles="Student">
+        <AuthorizeView Roles="Instructor,Student">
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="/enrolled-courses">
                     <span class="oi oi-person" aria-hidden="true"></span> My Courses
