@@ -1,5 +1,6 @@
 ﻿@page "/projects"
 @attribute [Authorize(Roles = "Instructor")]
+
 <div class="">
     <div class="d-flex mb-2">
         <h2 class="mt-2">Projects</h2>
@@ -9,7 +10,7 @@
         </div>
     </div>
 
-    <table class="sortable table">
+    <table class="table" id="projectsList">
         <thead>
             <tr>
                 <th>
