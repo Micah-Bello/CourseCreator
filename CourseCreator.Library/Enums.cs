@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,8 +10,11 @@ namespace CourseCreator.Library
     {
         public enum BlockTypes
         {
+            [Description("Quiz")]
             SimpleQuiz,
+            [Description("Match Quiz")]
             MatchQuiz,
+            [Description("VIdeo")]
             Video
         }
 
