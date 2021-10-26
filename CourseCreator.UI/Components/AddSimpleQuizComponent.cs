@@ -1,4 +1,5 @@
-﻿using CourseCreator.Library.Data;
+﻿using AutoMapper;
+using CourseCreator.Library.Data;
 using CourseCreator.Library.Models;
 using CourseCreator.UI.Models;
 using Microsoft.AspNetCore.Components;
@@ -13,12 +14,19 @@ namespace CourseCreator.UI.Components
     {
         [Inject]
         public SimpleQuizDataService SimpleQuizData { get; set; }
+
         [Inject]
         public NavigationManager NavMan { get; set; }
+
+        [Inject]
+        public IMapper Mapper { get; set; }
+
         [Parameter]
         public int ProjectId { get; set; }
+
         [Parameter]
         public int SectionId { get; set; }
+
         [Parameter]
         public int OrderNo { get; set; }
 
@@ -29,42 +37,23 @@ namespace CourseCreator.UI.Components
 
         private async Task CreateNewSimpleQuiz()
         {
-            SimpleQuizModel quizToSave = new SimpleQuizModel
-            {
-                Question = quiz.Question,
-                IsOpinionQuestion = quiz.IsOpinionQuestion,
-                SectionId = SectionId,
-                OrderNo = OrderNo
-            };
-
-            foreach (var option in quiz.Options)
-            {
-                quizToSave.Options.Add(new SimpleQuizOptionModel
-                {
-                    Text = option.Text,
-                    IsAnswer = option.IsAnswer
-                });
-            }
+            var quizToSave = Mapper.Map<SimpleQuizModel>(quiz);
+            quizToSave.SectionId = SectionId;
+            quizToSave.OrderNo = OrderNo;
 
             await SimpleQuizData.CreateSimpleQuiz(quizToSave);
 
             NavMan.NavigateTo($"/projects/{ProjectId}");
         }
 
-        private void OpenOptionForm()
+        private void DisplayAddOptionForm()
         {
             showOptionForm = true;
         }
 
-        private void SetCorrectAnswer(SimpleQuizOptionDisplayModel quizOption)
+        private void SetOptionAsCorrectAnswer(SimpleQuizOptionDisplayModel quizOption)
         {
-            foreach (var option in quiz.Options)
-            {
-                if (option.IsAnswer)
-                {
-                    option.IsAnswer = false;
-                }
-            }
+            quiz.Options.ForEach(o => o.IsAnswer = false);
 
             quizOption.IsAnswer = true;
         }
@@ -73,7 +62,7 @@ namespace CourseCreator.UI.Components
         {
             if (quizOption.IsAnswer)
             {
-                SetCorrectAnswer(quizOption);
+                SetOptionAsCorrectAnswer(quizOption);
             }
 
             quiz.Options.Add(quizOption);

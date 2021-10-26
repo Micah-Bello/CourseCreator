@@ -1,4 +1,5 @@
-﻿using CourseCreator.Library.Data;
+﻿using AutoMapper;
+using CourseCreator.Library.Data;
 using CourseCreator.Library.Models;
 using CourseCreator.UI.Models;
 using Microsoft.AspNetCore.Components;
@@ -13,12 +14,19 @@ namespace CourseCreator.UI.Components
     {
         [Inject]
         public MatchQuizDataService MatchQuizData { get; set; }
+
         [Inject]
         public NavigationManager NavMan { get; set; }
+
+        [Inject]
+        public IMapper Mapper { get; set; }
+
         [Parameter]
         public int ProjectId { get; set; }
+
         [Parameter]
         public int SectionId { get; set; }
+
         [Parameter]
         public int OrderNo { get; set; }
 
@@ -28,28 +36,16 @@ namespace CourseCreator.UI.Components
 
         private async Task CreateNewMatchQuiz()
         {
-            MatchQuizModel quizToSave = new MatchQuizModel
-            {
-                Question = quiz.Question,
-                SectionId = SectionId,
-                OrderNo = OrderNo
-            };
-
-            foreach (var option in quiz.Options)
-            {
-                quizToSave.Options.Add(new MatchQuizOptionModel
-                {
-                    LeftOption = option.LeftOption,
-                    RightOption = option.RightOption
-                });
-            }
+            var quizToSave = Mapper.Map<MatchQuizModel>(quiz);
+            quizToSave.SectionId = SectionId;
+            quizToSave.OrderNo = OrderNo;
 
             await MatchQuizData.CreateMatchQuiz(quizToSave);
 
             NavMan.NavigateTo($"/projects/{ProjectId}");
         }
 
-        private void OpenOptionForm()
+        private void DisplayAddOptionForm()
         {
             showOptionForm = true;
         }

@@ -26,33 +26,3 @@
     </div>
 </EditForm>
 
-@code {
-    [Parameter]
-    public int ProjectId { get; set; }
-    [Parameter]
-    public int SectionId { get; set; }
-    [Parameter]
-    public int OrderNo { get; set; }
-
-    private VideoDisplayModel video = new VideoDisplayModel();
-
-    public async Task CreateNewVideo()
-    {
-        VideoModel videoToSave = new VideoModel
-        {
-            Title = video.Title,
-            VideoUrl = video.VideoUrl,
-            SectionId = SectionId,
-            OrderNo = OrderNo
-        };
-
-        await VideoData.CreateVideo(videoToSave);
-
-        NavMan.NavigateTo($"/projects/{ProjectId}");
-    }
-
-    public void OnCancelClick()
-    {
-        NavMan.NavigateTo($"/projects/{ProjectId}");
-    }
-}
