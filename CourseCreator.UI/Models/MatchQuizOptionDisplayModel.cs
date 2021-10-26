@@ -8,9 +8,12 @@ namespace CourseCreator.UI.Models
 {
     public class MatchQuizOptionDisplayModel
     {
+        public int Id { get; set; }
         [Required]
         public string LeftOption { get; set; }
         [Required]
         public string RightOption { get; set; }
+
+        public bool IsMatched { get; set; }
     }
 }
