@@ -6,7 +6,7 @@
         </label>
         <div class="row">
             <div class="col-6">
-                @foreach (var option in leftList)
+                @foreach (var option in leftOptions)
                 {
                 <div class="m-2">
                     @if (option.IsMatched)
@@ -15,7 +15,7 @@
                     }
                     else
                     {
-                        if (option.IsSelected)
+                        if (option.Id == leftOption?.Id)
                         {
                             <label class="btn btn-warning p-3 col-lg-8 col-md-6 col-sm text-left">@option.LeftOption</label>
                         }
@@ -28,7 +28,7 @@
                 }
             </div>
             <div class="col-6">
-                @foreach (var option in rightList)
+                @foreach (var option in rightOptions)
                 {
                 <div class="m-2">
                     @if (option.IsMatched)
@@ -37,7 +37,7 @@
                     }
                     else
                     {
-                        if (option.IsSelected)
+                        if (option.Id == rightOption?.Id)
                         {
                             <label class="btn btn-warning p-3 col-lg-8 col-md-6 col-sm text-left">@option.RightOption</label>
                         }
@@ -57,85 +57,4 @@
 else
 {
     <label>Loading...</label>
-}
-
-@code {
-    [Parameter]
-    public MatchQuizModel Quiz { get; set; }
-
-    private List<MatchQuizOptionModel> leftList;
-    private List<MatchQuizOptionModel> rightList;
-
-    private MatchQuizOptionModel leftOption;
-    private MatchQuizOptionModel rightOption;
-
-    protected override void OnParametersSet()
-    {
-        leftList = Quiz.Options.Shuffle().ConvertAll(x => new MatchQuizOptionModel(x.Id, x.QuizId, x.LeftOption, x.RightOption, x.IsSelected, x.IsMatched));
-        rightList = Quiz.Options.Shuffle().ConvertAll(x => new MatchQuizOptionModel(x.Id, x.QuizId, x.LeftOption, x.RightOption, x.IsSelected, x.IsMatched));
-    }
-
-    public void HandleLeftOptionClick(MatchQuizOptionModel option)
-    {
-        leftOption = option;
-
-        foreach (var op in leftList)
-        {
-            if (op.IsSelected)
-            {
-                op.IsSelected = false;
-            }
-        }
-
-        leftOption.IsSelected = true;
-
-        if (rightOption is not null)
-        {
-            if (leftOption.Id == rightOption.Id)
-            {
-                leftOption.IsMatched = true;
-                rightOption.IsMatched = true;
-
-                leftOption = null;
-                rightOption = null;
-            }
-            else
-            {
-                rightOption.IsSelected = false;
-            }
-        }
-
-    }
-
-    public void HandleRightOptionClick(MatchQuizOptionModel option)
-    {
-        rightOption = option;
-
-        foreach (var op in rightList)
-        {
-            if (op.IsSelected)
-            {
-                op.IsSelected = false;
-            }
-        }
-
-        rightOption.IsSelected = true;
-
-        if (leftOption is not null )
-        {
-            if (rightOption.Id == leftOption.Id)
-            {
-                leftOption.IsMatched = true;
-                rightOption.IsMatched = true;
-
-                leftOption = null;
-                rightOption = null;
-            }
-            else
-            {
-                leftOption.IsSelected = false;
-            }
-        }
-
-    }
 }
