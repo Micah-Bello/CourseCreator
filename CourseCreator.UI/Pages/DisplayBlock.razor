@@ -9,33 +9,21 @@
 
     @if (blockToDisplay is not null)
     {
-        switch (blockToDisplay)
-        {
-            case SimpleQuizModel simpleQuiz:
-                <SimpleQuizComponent Quiz="simpleQuiz" />
-                break;
-            case MatchQuizModel matchQuiz:
-                <MatchQuizComponent Quiz="matchQuiz" />
-                break;
-            case VideoModel video:
-                <VideoComponent Video="video" />
-                break;
-            default:
-                break;
-        }
+        
+        @blockToDisplay.Display()
     }
 
     @if (!isPreviewOne)
     {
         <div class="row mx-2 my-4">
-            @if (!(OrderNo <= BlockData.Blocks.Min(x => x.OrderNo)))
+            @if (!(OrderNo <= Content.SectionContent.Min(x => x.OrderNo)))
             {
                 <button class="btn btn-primary mr-1" @onclick="ReturnToPreviousBlock">
                     Previous
                 </button>
             }
 
-            @if (!(OrderNo >= BlockData.Blocks.Max(x => x.OrderNo)))
+            @if (!(OrderNo >= Content.SectionContent.Max(x => x.OrderNo)))
             {
                 <div class="col text-right">
                     <button class="btn btn-success" @onclick="AdvanceToNextBlock">

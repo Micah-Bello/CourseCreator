@@ -1,6 +1,8 @@
-﻿using CourseCreator.Library;
+﻿using AutoMapper;
+using CourseCreator.Library;
 using CourseCreator.Library.Data;
 using CourseCreator.Library.Models;
+using CourseCreator.UI.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -15,12 +17,17 @@ namespace CourseCreator.UI.Pages
         public int OrderNo { get; set; }
         
         [Inject]
-        public ContentBlockDataService BlockData { get; set; }
+        public Content Content { get; set; }
+
+        [Inject]
+        public IMapper Mapper { get; set; }
 
         private bool isPreviewOne;
         private bool ready;
 
-        private IContentBlock blockToDisplay => BlockData.Blocks.Where(x => x.OrderNo == OrderNo).FirstOrDefault();
+        private IContentDisplayable blockToDisplay => Content.SectionContent.Where(x => x.OrderNo == OrderNo).FirstOrDefault();
+
+        
 
         protected override void OnInitialized()
         {
