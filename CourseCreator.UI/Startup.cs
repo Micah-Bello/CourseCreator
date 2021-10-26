@@ -3,6 +3,7 @@ using CourseCreator.Library.Data;
 using CourseCreator.Library.DataAccess;
 using CourseCreator.UI.Areas.Identity;
 using CourseCreator.UI.Data;
+using CourseCreator.UI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -41,6 +42,7 @@ namespace CourseCreator.UI
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
@@ -50,6 +52,7 @@ namespace CourseCreator.UI
             services.AddScoped<MatchQuizDataService>();
             services.AddScoped<VideoDataService>();
             services.AddScoped<ContentBlockDataService>();
+            services.AddScoped<Content>();
             services.AddHttpContextAccessor();
             services.AddBlazoredToast();
         }
