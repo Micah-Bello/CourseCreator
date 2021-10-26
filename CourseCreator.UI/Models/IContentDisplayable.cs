@@ -9,7 +9,8 @@ namespace CourseCreator.UI.Models
 {
     public interface IContentDisplayable
     {
-        RenderFragment Display();
+        RenderFragment DisplayComponent();
+        RenderFragment AddComponent(NewBlockParameters parameters);
 
         int OrderNo { get; set; }
         string DisplayTitle { get; }

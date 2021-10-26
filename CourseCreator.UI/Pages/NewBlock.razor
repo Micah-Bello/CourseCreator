@@ -4,29 +4,18 @@
 
 <div class="row mb-3">
     <div class="col-5">
-        <EditForm Model="BlockType">
-            <InputSelect @bind-Value="BlockType" class="form-control">
-                @foreach (var type in Enum.GetValues(typeof(Enums.BlockTypes)))
+        <EditForm Model="selectedBlockType">
+            <InputSelect @bind-Value="selectedBlockType" class="form-control">
+                @foreach (var instance in AvailableBlockTypes)
                 {
-                    <option value="@type">@Enums.BlockTypeNames.Where(x => x.Key == (int)type).FirstOrDefault().Value</option>
+                    <option value="@instance.ContentType">@instance.ContentType</option>
                 }
             </InputSelect>
         </EditForm>
     </div>
 </div>
 
-
-@switch (BlockType)
+@if (BlockType is not null)
 {
-    case Enums.BlockTypes.SimpleQuiz:
-        <AddSimpleQuizComponent ProjectId="@ProjectId" SectionId="@SectionId" OrderNo="OrderNo" />
-        break;
-    case Enums.BlockTypes.MatchQuiz:
-        <AddMatchQuizComponent ProjectId="@ProjectId" SectionId="@SectionId" OrderNo="OrderNo" />
-        break;
-    case Enums.BlockTypes.Video:
-        <AddVideoComponent ProjectId="@ProjectId" SectionId="@SectionId" OrderNo="OrderNo" />
-        break;
-    default:
-        break;
+    @BlockType.AddComponent(Parameters)
 }

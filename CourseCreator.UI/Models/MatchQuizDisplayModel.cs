@@ -17,9 +17,14 @@ namespace CourseCreator.UI.Models
         public string DisplayTitle => Question;
         public string ContentType => "Match Quiz";
 
-        public RenderFragment Display()
+        public RenderFragment DisplayComponent()
         {
             return MatchQuiz.MatchQuizComponentFragment(this);
+        }
+
+        public RenderFragment AddComponent(NewBlockParameters parameters)
+        {
+            return MatchQuiz.AddMatchQuizComponentFragment(parameters);
         }
     }
 }

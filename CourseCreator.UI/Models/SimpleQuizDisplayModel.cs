@@ -19,9 +19,14 @@ namespace CourseCreator.UI.Models
 
         public string ContentType => "Simple Quiz";
 
-        public RenderFragment Display()
+        public RenderFragment DisplayComponent()
         {
             return SimpleQuiz.SimpleQuizComponentFragment(this);
+        }
+
+        public RenderFragment AddComponent(NewBlockParameters parameters)
+        {
+            return SimpleQuiz.AddSimpleQuizComponentFragment(parameters);
         }
     }
 }

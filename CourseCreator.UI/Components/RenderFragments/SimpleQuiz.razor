@@ -3,4 +3,9 @@
     {
         <SimpleQuizComponent Quiz="simpleQuiz" />
     };
+
+    public static RenderFragment<NewBlockParameters> AddSimpleQuizComponentFragment = parameters => __builder =>
+    {
+        <AddSimpleQuizComponent ProjectId="parameters.ProjectId" SectionId="parameters.SectionId" OrderNo="parameters.OrderNo" />
+    };
 }

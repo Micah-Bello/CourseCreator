@@ -1,6 +1,11 @@
 ﻿@code {
     public static RenderFragment<VideoDisplayModel> VideoComponentFragment = video => __builder =>
     {
-        <VideoComponent Video="video" />
+    <VideoComponent Video="video" />
+    };
+
+    public static RenderFragment<NewBlockParameters> AddVideoComponentFragment = parameters => __builder =>
+    {
+    <AddVideoComponent ProjectId="parameters.ProjectId" SectionId="parameters.SectionId" OrderNo="parameters.OrderNo" />
     };
 }

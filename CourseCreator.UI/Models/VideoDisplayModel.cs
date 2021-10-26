@@ -19,7 +19,12 @@ namespace CourseCreator.UI.Models
 
         public string ContentType => "Video";
 
-        public RenderFragment Display()
+        public RenderFragment AddComponent(NewBlockParameters parameters)
+        {
+            return Video.AddVideoComponentFragment(parameters);
+        }
+
+        public RenderFragment DisplayComponent()
         {
             return Video.VideoComponentFragment(this);
         }

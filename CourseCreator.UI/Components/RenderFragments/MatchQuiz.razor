@@ -3,4 +3,9 @@
     {
         <MatchQuizComponent Quiz="matchQuiz" />
     };
+
+    public static RenderFragment<NewBlockParameters> AddMatchQuizComponentFragment = parameters => __builder =>
+    {
+        <AddMatchQuizComponent ProjectId="parameters.ProjectId" SectionId="parameters.SectionId" OrderNo="parameters.OrderNo" />
+    };
 }
