@@ -8,22 +8,22 @@
         {
             <div class="m-2 row">
                 <div class="mx-2 mt-2">
-                    @switch (block.Type)
+                    @switch (block)
                     {
-                        case Enums.BlockTypes.SimpleQuiz:
+                        case SimpleQuizModel simpleQuiz:
                             <i class="fas fa-question-circle m-2"></i>
                             break;
-                        case Enums.BlockTypes.MatchQuiz:
+                        case MatchQuizModel matchQuiz:
                             <i class="fas fa-puzzle-piece m-2"></i>
                             break;
-                        case Enums.BlockTypes.Video:
+                        case VideoModel video:
                             <i class="fas fa-video m-2"></i>
                             break;
                         default:
                             break;
                     }
                 </div>
-                <label class="h5 mt-2 pt-2">@block.DisplayTitle</label>
+                @*<label class="h5 mt-2 pt-2">@block.DisplayTitle</label>*@
 
                 <div class="col text-right">
 

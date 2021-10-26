@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseCreator.Library", "Co
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CourseCreator.Database", "CourseCreator.Database\CourseCreator.Database.sqlproj", "{20479252-BD0C-47E7-9D85-5977FCA07173}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseCreator.WPF", "CourseCreator.WPF\CourseCreator.WPF.csproj", "{8AEE053B-2317-4C62-8A86-0197D13752E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseCreator.WPF", "CourseCreator.WPF\CourseCreator.WPF.csproj", "{8AEE053B-2317-4C62-8A86-0197D13752E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

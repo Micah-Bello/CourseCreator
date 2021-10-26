@@ -10,8 +10,6 @@ namespace CourseCreator.Library.Data
 {
     public class ContentBlockDataService
     {
-        public List<IContentBlock> Blocks { get; set; } = new();
-
         private readonly ISqlDataAccess _dataAccess;
 
         public ContentBlockDataService(ISqlDataAccess dataAccess)
@@ -19,7 +17,7 @@ namespace CourseCreator.Library.Data
             _dataAccess = dataAccess;
         }
 
-        public async Task UpdateOrderNo(List<IContentBlock> blocks)
+        public async Task UpdateOrderNo(List<CourseContentBase> blocks)
         {
             try
             {

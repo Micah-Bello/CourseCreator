@@ -1,6 +1,6 @@
 ﻿@using Microsoft.Extensions.Logging
 @inject ProjectDataService ProjectData
-@inject NavigationManager NavMan 
+@inject NavigationManager NavMan
 
 @page "/"
 <div class="container-fluid">
@@ -11,15 +11,15 @@
         <div class="row mt-3 mx-auto">
             @foreach (var project in publishedProjects)
             {
-            <div class="col-sm-12 col-md-5 col-xl-3 rounded border shadow-sm p-0 m-2">
-                <a href="javascript:;" class="card-link text-dark p-0" @onclick="() => ViewProject(project.Id)">
-                    <ImageComponent SearchTerm="@project.Title.Substring(0, 1)" />
-                    <div class="p-3">
-                        <h4>@project.Title</h4>
-                        <p>@project.Description</p>
-                    </div>
-                </a>
-            </div>
+                <div class="col-sm-12 col-md-5 col-xl-3 rounded border shadow-sm p-0 m-2">
+                    <a href="javascript:;" class="card-link text-dark p-0" @onclick="() => ViewProject(project.Id)">
+                        <ImageComponent SearchTerm="@project.Title.Substring(0, 1)" />
+                        <div class="p-3">
+                            <h4>@project.Title</h4>
+                            <p>@project.Description</p>
+                        </div>
+                    </a>
+                </div>
             }
         </div>
 
@@ -27,15 +27,15 @@
 </div>
 
 @code{
-    private List<ProjectModel> publishedProjects;
+        private List<ProjectModel> publishedProjects;
 
-    protected override async Task OnInitializedAsync()
-    {
-        publishedProjects = await ProjectData.GetPublishedProjects();
-    }
+        protected override async Task OnInitializedAsync()
+        {
+            publishedProjects = await ProjectData.GetPublishedProjects();
+        }
 
-    private void ViewProject(int projectId)
-    {
-        NavMan.NavigateTo($"courses/{projectId}/view");
-    }
+        private void ViewProject(int projectId)
+        {
+            NavMan.NavigateTo($"courses/{projectId}/view");
+        }
 }

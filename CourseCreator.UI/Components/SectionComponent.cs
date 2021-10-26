@@ -1,6 +1,8 @@
-﻿using CourseCreator.Library.Data;
+﻿using AutoMapper;
+using CourseCreator.Library.Data;
 using CourseCreator.Library.Models;
 using CourseCreator.UI.Data;
+using CourseCreator.UI.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -13,25 +15,36 @@ namespace CourseCreator.UI.Components
     {
         [Inject]
         public NavigationManager NavMan { get; set; }
+
+        [Inject]
+        public IMapper Mapper { get; set; }
+
         [Inject]
         public SimpleQuizDataService SimpleQuizData { get; set; }
+
         [Inject]
         public MatchQuizDataService MatchQuizData { get; set; }
+
         [Inject]
         public VideoDataService VideoData { get; set; }
+
         [Inject]
         public ContentBlockDataService BlockData { get; set; }
 
+        [Inject]
+        public Content Content { get; set; }
+
         [Parameter]
         public SectionModel Section { get; set; }
+
         [Parameter]
         public int ProjectId { get; set; }
 
         private bool isExpanded = false;
 
-        private List<IContentBlock> blocks;
+        private List<CourseContentBase> blocks;
 
-        private List<IContentBlock> ActiveBlocks => blocks is null ? new() : blocks.Where(b => b.OrderNo != 0).ToList();
+        private List<IContentDisplayable> ActiveBlocks => Content.SectionContent.Where(b => b.OrderNo != 0).ToList();
 
         protected override async Task OnInitializedAsync()
         {
@@ -41,14 +54,17 @@ namespace CourseCreator.UI.Components
 
             var videos = await VideoData.GetSectionVideos(Section.Id);
 
-            blocks = new List<IContentBlock>();
+            Content.SectionContent.Clear();
+
+            blocks = new List<CourseContentBase>();
 
             if (simpleQuizzes is not null)
             {
                 foreach (var quiz in simpleQuizzes)
                 {
-                    quiz.DisplayTitle = quiz.Question;
                     quiz.Options = await SimpleQuizData.GetQuizOptions(quiz.Id);
+                    var quizBlock = Mapper.Map<SimpleQuizDisplayModel>(quiz);
+                    Content.SectionContent.Add(quizBlock);
                 }
 
                 blocks.AddRange(simpleQuizzes);
@@ -58,8 +74,9 @@ namespace CourseCreator.UI.Components
             {
                 foreach (var quiz in matchQuizzes)
                 {
-                    quiz.DisplayTitle = quiz.Question;
                     quiz.Options = await MatchQuizData.GetQuizOptions(quiz.Id);
+                    var quizBlock = Mapper.Map<MatchQuizDisplayModel>(quiz);
+                    Content.SectionContent.Add(quizBlock);
                 }
 
                 blocks.AddRange(matchQuizzes);
@@ -69,9 +86,9 @@ namespace CourseCreator.UI.Components
             {
                 foreach (var video in videos)
                 {
-                    video.DisplayTitle = video.Title;
+                    var videoBlock = Mapper.Map<VideoDisplayModel>(video);
+                    Content.SectionContent.Add(videoBlock);
                 }
-
                 blocks.AddRange(videos);
             }
         }
@@ -81,15 +98,15 @@ namespace CourseCreator.UI.Components
             NavMan.NavigateTo($"/projects/{ProjectId}/{Section.Id}/{ActiveBlocks.Count + 1}/add-new-block");
         }
 
-        private async Task DeleteBlock(IContentBlock block)
+        private async Task DeleteBlock(IContentDisplayable block)
         {
-            var num = block.OrderNo;
+            //var num = block.OrderNo;
 
-            block.OrderNo = 0;
+            //block.OrderNo = 0;
 
-            await BlockData.UpdateOrderNo(new List<IContentBlock>() { block });
+            //await BlockData.UpdateOrderNo(new List<CourseContentBase>() { block });
 
-            await UpdateBlocksBelowDeleted(num);
+            //await UpdateBlocksBelowDeleted(num);
         }
 
         private async Task UpdateBlocksBelowDeleted(int deletedBlockOrderNo)
@@ -103,12 +120,10 @@ namespace CourseCreator.UI.Components
 
         private void PreviewSection()
         {
-            BlockData.Blocks = ActiveBlocks;
-
             NavMan.NavigateTo($"/projects/view/0/");
         }
 
-        private async Task MoveUp(IContentBlock block)
+        private async Task MoveUp(IContentDisplayable block)
         {
             var blockOnTop = ActiveBlocks.Where(x => x.OrderNo == block.OrderNo - 1).FirstOrDefault();
 
@@ -117,17 +132,17 @@ namespace CourseCreator.UI.Components
                 blockOnTop.OrderNo++;
                 block.OrderNo--;
 
-                var blocksToUpdate = new List<IContentBlock>()
-                {
-                    blockOnTop,
-                    block
-                };
+                //var blocksToUpdate = new List<CourseContentBase>()
+                //{
+                //    Mapper.Map(blockOnTop);
+                //    block
+                //};
 
-                await BlockData.UpdateOrderNo(blocksToUpdate);
+                //await BlockData.UpdateOrderNo(blocksToUpdate);
             }
         }
 
-        private async Task MoveDown(IContentBlock block)
+        private async Task MoveDown(IContentDisplayable block)
         {
             var blockBelow = ActiveBlocks.Where(x => x.OrderNo == block.OrderNo + 1).FirstOrDefault();
 
@@ -136,20 +151,18 @@ namespace CourseCreator.UI.Components
                 blockBelow.OrderNo--;
                 block.OrderNo++;
 
-                var blocksToUpdate = new List<IContentBlock>()
-                {
-                    blockBelow,
-                    block
-                };
+                //var blocksToUpdate = new List<CourseContentBase>()
+                //{
+                //    blockBelow,
+                //    block
+                //};
 
-                await BlockData.UpdateOrderNo(blocksToUpdate);
+                //await BlockData.UpdateOrderNo(blocksToUpdate);
             }
         }
 
-        private void PreviewBlock(IContentBlock block)
+        private void PreviewBlock(IContentDisplayable block)
         {
-            BlockData.Blocks = ActiveBlocks;
-
             NavMan.NavigateTo($"/projects/view/{block.OrderNo}/");
         }
 

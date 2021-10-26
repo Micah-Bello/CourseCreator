@@ -30,9 +30,9 @@ namespace CourseCreator.UI.Components
 
         private bool isExpanded = false;
 
-        private List<IContentBlock> blocks = new();
+        private List<CourseContentBase> blocks = new();
 
-        private List<IContentBlock> activeBlocks => blocks.Where(b => b.OrderNo != 0).ToList();
+        private List<CourseContentBase> activeBlocks => blocks.Where(b => b.OrderNo != 0).ToList();
 
         protected override async Task OnInitializedAsync()
         {
@@ -42,13 +42,12 @@ namespace CourseCreator.UI.Components
 
             var videos = await VideoData.GetSectionVideos(Section.Id);
 
-            blocks = new List<IContentBlock>();
+            blocks = new List<CourseContentBase>();
 
             if (simpleQuizzes is not null)
             {
                 foreach (var quiz in simpleQuizzes)
                 {
-                    quiz.DisplayTitle = quiz.Question;
                     quiz.Options = await SimpleQuizData.GetQuizOptions(quiz.Id);
                 }
 
@@ -59,7 +58,6 @@ namespace CourseCreator.UI.Components
             {
                 foreach (var quiz in matchQuizzes)
                 {
-                    quiz.DisplayTitle = quiz.Question;
                     quiz.Options = await MatchQuizData.GetQuizOptions(quiz.Id);
                 }
 
@@ -68,10 +66,6 @@ namespace CourseCreator.UI.Components
 
             if (videos is not null)
             {
-                foreach (var video in videos)
-                {
-                    video.DisplayTitle = video.Title;
-                }
 
                 blocks.AddRange(videos);
             }

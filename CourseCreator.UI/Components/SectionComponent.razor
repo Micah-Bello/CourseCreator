@@ -15,20 +15,7 @@
                 <div class="mx-4 row">
                     <label class="h6 mt-2 pt-2">@block.DisplayTitle</label>
                     <div class="col text-right">
-                        @switch (block.Type)
-                        {
-                            case Enums.BlockTypes.SimpleQuiz:
-                                <label class="badge badge-info px-2 mx-1">Quiz</label>
-                                break;
-                            case Enums.BlockTypes.MatchQuiz:
-                                <label class="badge badge-success px-2 mx-1">Match</label>
-                                break;
-                            case Enums.BlockTypes.Video:
-                                <label class="badge badge-warning px-2 mx-1">Video</label>
-                                break;
-                            default:
-                                break;
-                        }
+                        <label class="badge badge-info px-2 mx-1">@block.ContentType</label>
 
                         <a href="javascript:;" class="hvr-icon-fade hvr-grow">
                             <i class="fas fa-pen hvr-icon m-2" @onclick="AddBlock"></i>
