@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace CourseCreator.UI.Services
@@ -10,7 +11,7 @@ namespace CourseCreator.UI.Services
     {
         public static List<IContentDisplayable> GetAllContentTypes()
         {
-            var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+            var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetExportedTypes())
                 .Where(x => typeof(IContentDisplayable).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
 
             var instances = new List<IContentDisplayable>();

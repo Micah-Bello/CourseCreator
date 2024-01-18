@@ -47,14 +47,14 @@ namespace CourseCreator.UI.Pages
         {
             project.IsPublished = true;
             await ProjectData.UpdatePublishStatus(project);
-            ToastService.ShowSuccess("Project Published Successfully", "-");
+            ToastService.ShowSuccess("Project Published Successfully");
         }
 
         public async Task UnpublishProject()
         {
             project.IsPublished = false;
             await ProjectData.UpdatePublishStatus(project);
-            ToastService.ShowToast(ToastLevel.Success, "Done", "-");
+            ToastService.ShowToast(ToastLevel.Success, "Done");
         }
     }
 }
